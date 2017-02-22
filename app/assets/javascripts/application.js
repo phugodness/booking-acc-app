@@ -13,8 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min
+//= require bootstrap-datepicker
+//= require moment
+//= require daterangepicker
 //= require agency.min
 //= require jquery.easing
 //= require contact_me
 //= require turbolinks
 //= require_tree .
+$(document).ready(function(){
+  $('.datepicker').datepicker();
+  $('input[class="daterange"]').daterangepicker();
+});

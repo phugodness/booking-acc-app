@@ -4,6 +4,13 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+
+gem 'jquery-rails'
+gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
+
+
+gem 'bootstrap-datepicker-rails'
 gem "paperclip"
 gem 'jquery-easing-rails'
 gem "font-awesome-rails"
