@@ -12,5 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap.min
+//= require agency.min
+//= require jquery.easing
+//= require contact_me
 //= require turbolinks
 //= require_tree .
