@@ -22,6 +22,8 @@
 //= require turbolinks
 //= require_tree .
 $(document).ready(function(){
-  $('.datepicker').datepicker();
+  $('.datepicker').datepicker({
+    format: 'mm-dd-yyyy'
+  });
   $('input[class="daterange"]').daterangepicker();
 });

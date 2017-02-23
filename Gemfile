@@ -8,7 +8,7 @@ end
 gem 'jquery-rails'
 gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'
-
+gem 'pry-rails'
 
 gem 'bootstrap-datepicker-rails'
 gem "paperclip"
