@@ -8,6 +8,7 @@ end
 gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-github'
 
 gem 'jquery-rails'
 gem 'momentjs-rails'
