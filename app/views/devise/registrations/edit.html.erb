@@ -15,7 +15,7 @@
   </div>
 
   <div><%= f.label :date_of_birth %><br />
-    <%= f.text_field :date_of_birth, value: f.object.date_of_birth.strftime("%d-%m-%Y"),class: "datepicker" %>
+    <%= f.text_field :date_of_birth, value: f.object.try(:date_of_birth).try(:strftime,("%d-%m-%Y")),class: "datepicker" %>
   </div>
 
   <div class="field">
