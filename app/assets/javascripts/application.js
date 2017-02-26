@@ -12,5 +12,20 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
+//= require gmaps/google
+//= require bootstrap.min
+//= require bootstrap-datepicker
+//= require moment
+//= require daterangepicker
+//= require agency.min
+//= require jquery.easing
+//= require contact_me
 //= require turbolinks
 //= require_tree .
+$(document).ready(function(){
+  $('.datepicker').datepicker({
+    format: 'mm-dd-yyyy'
+  });
+  $('input[class="daterange"]').daterangepicker();
+});

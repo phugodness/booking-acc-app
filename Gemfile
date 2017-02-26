@@ -5,7 +5,20 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'therubyracer'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
 
+gem 'jquery-rails'
+gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
+gem 'pry-rails'
+
+gem 'bootstrap-datepicker-rails'
+gem "paperclip"
+gem 'jquery-easing-rails'
+gem "font-awesome-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
@@ -34,6 +47,14 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+#User for authentication
+gem 'devise'
+
+gem 'geocoder'
+gem 'gmaps4rails'
+# bootstrap
+gem 'bootstrap-sass', '~> 3.3.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
