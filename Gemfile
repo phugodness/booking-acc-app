@@ -51,6 +51,8 @@ gem 'jbuilder', '~> 2.5'
 #User for authentication
 gem 'devise'
 
+gem 'geocoder'
+gem 'gmaps4rails'
 # bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
 

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type_of_room: one
+  user: one
+  name: MyString
+  address: MyString
+  number_of_guest: 
+  price: 
+  accomodates: 
+  number_of_bed: 
+  description: MyString
+  house_rules: MyString
+  longitude: 1.5
+  latitude: 1.5
+
+two:
+  type_of_room: two
+  user: two
+  name: MyString
+  address: MyString
+  number_of_guest: 
+  price: 
+  accomodates: 
+  number_of_bed: 
+  description: MyString
+  house_rules: MyString
+  longitude: 1.5
+  latitude: 1.5

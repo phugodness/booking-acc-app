@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rooms
   devise_for :users, :controllers => { :registrations => :registrations, :omniauth_callbacks => "callbacks"  }
   get 'home/index'
 

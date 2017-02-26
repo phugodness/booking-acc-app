@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225002740) do
+ActiveRecord::Schema.define(version: 20170226102751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "type_of_room_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "address"
+    t.integer  "number_of_guest"
+    t.integer  "price"
+    t.integer  "accomodates"
+    t.integer  "number_of_bed"
+    t.string   "description"
+    t.string   "house_rules"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["type_of_room_id"], name: "index_rooms_on_type_of_room_id", using: :btree
+    t.index ["user_id"], name: "index_rooms_on_user_id", using: :btree
+  end
+
+  create_table "type_of_rooms", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",   null: false
@@ -46,4 +71,6 @@ ActiveRecord::Schema.define(version: 20170225002740) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "rooms", "type_of_rooms"
+  add_foreign_key "rooms", "users"
 end
