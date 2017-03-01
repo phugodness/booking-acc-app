@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require underscore
+//= require dropzone.min
 //= require gmaps/google
 //= require bootstrap.min
 //= require bootstrap-datepicker
