@@ -59,6 +59,12 @@
   <strong>Latitude:</strong>
   <%= @room.latitude %>
 </p>
+<p>
+  <strong>Image:</strong>
+  <% @room.image_rooms.each do |u| %>
+    <%= image_tag u.image.url%>
+  <% end%>
+</p>
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
 <div style='width: 800px;'>

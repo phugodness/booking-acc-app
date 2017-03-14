@@ -33,6 +33,11 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
+        if params[:images]
+          params[:images].each { |image|
+            @room.image_rooms.create(image: image)
+          }
+        end
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
