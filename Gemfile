@@ -14,7 +14,7 @@ gem 'jquery-rails'
 gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'
 gem 'pry-rails'
-
+gem 'ckeditor'
 gem 'bootstrap-datepicker-rails'
 gem "paperclip"
 gem 'jquery-easing-rails'
