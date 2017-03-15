@@ -5,5 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-TypeOfRoom.create(name: 'Private')
-TypeOfRoom.create(name: 'Public')
+TypeOfRoom.create!(name: 'Private')
+TypeOfRoom.create!(name: 'Public')
+TypeOfRoom.create!(name: 'Double')

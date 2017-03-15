@@ -2,12 +2,12 @@
 
 <p>
   <strong>Type of room:</strong>
-  <%= @room.type_of_room %>
+  <%= @room.type_of_room.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @room.user %>
+  <%= @room.user.name %>
 </p>
 
 <p>
@@ -50,15 +50,6 @@
   <%= @room.house_rules %>
 </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @room.longitude %>
-</p>
-
-<p>
-  <strong>Latitude:</strong>
-  <%= @room.latitude %>
-</p>
 <p>
   <strong>Image:</strong>
   <% @room.image_rooms.each do |u| %>

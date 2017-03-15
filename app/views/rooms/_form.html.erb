@@ -13,12 +13,7 @@
 
   <div class="field">
     <%= f.label :type_of_room_id %>
-    <%= f.text_field :type_of_room_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
+    <%= f.select :type_of_room_id, @type_of_room.collect{ |u| [u.name, u.id]} %>
   </div>
 
   <div class="field">
@@ -59,16 +54,6 @@
   <div class="field">
     <%= f.label :house_rules %>
     <%= f.text_field :house_rules %>
-  </div>
-
-  <div class="field">
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude %>
-  </div>
-
-  <div class="field">
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude %>
   </div>
 
   <div class="field">

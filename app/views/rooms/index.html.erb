@@ -24,8 +24,8 @@
   <tbody>
     <% @rooms.each do |room| %>
       <tr>
-        <td><%= room.type_of_room %></td>
-        <td><%= room.user %></td>
+        <td><%= room.type_of_room.name %></td>
+        <td><%= room.user.name %></td>
         <td><%= room.name %></td>
         <td><%= room.address %></td>
         <td><%= room.number_of_guest %></td>
