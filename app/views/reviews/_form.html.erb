@@ -1,0 +1,13 @@
+<%= form_for([@room, @room.reviews.build]) do |f| %>
+  <p>
+    <%= f.label :rank %><br>
+    <%= f.select :rank, (1...10).collect{|u| [u,u]} %>
+  </p>
+  <p>
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

@@ -8,5 +8,6 @@
 # TypeOfRoom.create!(name: 'Private')
 # TypeOfRoom.create!(name: 'Public')
 # TypeOfRoom.create!(name: 'Double')
-Amentity.create!(room_id: 1, internet: true, air_conditioning: true, cable_tv: true, breakfast: true, parking: false, elevator: true, heating: true, hot_tub: false)
-Amentity.create!(room_id: 38, internet: true, air_conditioning: true, cable_tv: true, breakfast: false, parking: false, elevator: false, heating: false, hot_tub: false)
+# Amentity.create!(room_id: 1, internet: true, air_conditioning: true, cable_tv: true, breakfast: true, parking: false, elevator: true, heating: true, hot_tub: false)
+# Amentity.create!(room_id: 38, internet: true, air_conditioning: true, cable_tv: true, breakfast: false, parking: false, elevator: false, heating: false, hot_tub: false)
+Review.create!(room_id: 1, user_id: 2, rank: 6, comment: 'aaaasdkjaksdkasdjkashdjkahsdkjhakshdkahkjdhakshd')

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room: one
+  user: one
+  rank: 1
+  comment: MyText
+
+two:
+  room: two
+  user: two
+  rank: 1
+  comment: MyText
