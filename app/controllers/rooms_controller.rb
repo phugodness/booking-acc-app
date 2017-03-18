@@ -39,6 +39,7 @@ class RoomsController < ApplicationController
             @room.image_rooms.create(image: image)
           }
         end
+        CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else

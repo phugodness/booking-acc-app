@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @user.name %></h1>
+    <h2>You've just created this room</h2>
+    <p>
+      <strong>Name:</strong>
+      <%= @room.name%>
+    </p>
+    <p>
+      <strong>Image:</strong>
+      <% @room.image_rooms.each do |u| %>
+        <%= image_tag u.image.url%>
+      <% end%>
+    </p>
+  </body>
+</html>
