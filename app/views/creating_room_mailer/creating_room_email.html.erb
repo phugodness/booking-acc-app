@@ -22,18 +22,7 @@
       <strong>Address:</strong>
       <%= @room.address %>
     </p>
-    <p>
-      <ul>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:internet)%>">Internet</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:air_conditioning)%>">Air conditioning</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:cable_tv)%>">Cable TV</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:breakfast)%>">Breakfast</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:parking)%>">Parking</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:elevator)%>">Elevator</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:heating)%>">Heating</li>
-        <li style="text-decoration: <%=display_line_through @room.amentity.try(:hot_tub)%>">Hot Tub</li>
-      </ul>
-    </p>
+
     <p>
       <strong>Number of guest:</strong>
       <%= @room.number_of_guest %>
