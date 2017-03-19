@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+
+  get 'reservations/new'
+
   resources :rooms do
     resources :reviews
   end
+  resources :reservations
   devise_for :users, :controllers => { :registrations => :registrations, :omniauth_callbacks => "callbacks"  }
   get 'home/index'
   get 'about/index'
