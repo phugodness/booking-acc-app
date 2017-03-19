@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
-
+  before_action :init_data
   # GET /rooms
   # GET /rooms.json
   def index
@@ -29,10 +29,17 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
+    params[:room][:user_id] = current_user.id.to_s
     @room = Room.new(room_params)
 
     respond_to do |format|
       if @room.save
+        if params[:images]
+          params[:images].each { |image|
+            @room.image_rooms.create(image: image)
+          }
+        end
+        CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
@@ -72,6 +79,9 @@ class RoomsController < ApplicationController
       @room = Room.find(params[:id])
     end
 
+    def init_data
+      @type_of_room = TypeOfRoom.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
       params.require(:room).permit(:type_of_room_id, :user_id, :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, :longitude, :latitude)

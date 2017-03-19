@@ -2,12 +2,12 @@
 
 <p>
   <strong>Type of room:</strong>
-  <%= @room.type_of_room %>
+  <%= @room.type_of_room.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @room.user %>
+  <%= @room.user.name %>
 </p>
 
 <p>
@@ -19,7 +19,18 @@
   <strong>Address:</strong>
   <%= @room.address %>
 </p>
-
+<p>
+  <ul>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:internet)%>">Internet</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:air_conditioning)%>">Air conditioning</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:cable_tv)%>">Cable TV</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:breakfast)%>">Breakfast</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:parking)%>">Parking</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:elevator)%>">Elevator</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:heating)%>">Heating</li>
+    <li style="text-decoration: <%=display_line_through @room.amentity.try(:hot_tub)%>">Hot Tub</li>
+  </ul>
+</p>
 <p>
   <strong>Number of guest:</strong>
   <%= @room.number_of_guest %>
@@ -51,20 +62,34 @@
 </p>
 
 <p>
-  <strong>Longitude:</strong>
-  <%= @room.longitude %>
+  <strong>Image:</strong>
+  <% @room.image_rooms.each do |u| %>
+    <%= image_tag u.image.url%>
+  <% end%>
 </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @room.latitude %>
-</p>
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'>
   </div>
 </div>
+<ul>
+  <% @room.reviews.each do |r|%>
+  <li>
+    <p>
+      <strong>rank:</strong>
+      <%= r.rank%>
+    </p>
+    <p>
+      <strong>comment:</strong>
+      <%= raw r.comment%>
+    </p>
+  </li>
+  <% end %>
+</ul>
+<h2>Add Review</h2>
+<%= render 'reviews/form' %>
 <script type="text/javascript">
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){

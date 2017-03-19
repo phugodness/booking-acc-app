@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226102751) do
+ActiveRecord::Schema.define(version: 20170315163246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "amentities", force: :cascade do |t|
+    t.boolean  "internet"
+    t.boolean  "air_conditioning"
+    t.boolean  "cable_tv"
+    t.boolean  "breakfast"
+    t.boolean  "parking"
+    t.boolean  "elevator"
+    t.boolean  "heating"
+    t.boolean  "hot_tub"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "room_id"
+    t.index ["room_id"], name: "index_amentities_on_room_id", using: :btree
+  end
+
+  create_table "image_rooms", force: :cascade do |t|
+    t.integer  "room_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["room_id"], name: "index_image_rooms_on_room_id", using: :btree
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "room_id"
+    t.integer  "user_id"
+    t.integer  "rank"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_reviews_on_room_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "type_of_room_id"
@@ -71,6 +108,10 @@ ActiveRecord::Schema.define(version: 20170226102751) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "amentities", "rooms"
+  add_foreign_key "image_rooms", "rooms"
+  add_foreign_key "reviews", "rooms"
+  add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "type_of_rooms"
   add_foreign_key "rooms", "users"
 end
