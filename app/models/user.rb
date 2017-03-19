@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:facebook, :github]
   has_many :rooms
   has_many :reviews
+  has_many :reservations
   # validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   do_not_validate_attachment_file_type :image
   has_attached_file :image, default_url: "/img/:style/missing.png"

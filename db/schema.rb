@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315163246) do
+ActiveRecord::Schema.define(version: 20170319032449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(version: 20170315163246) do
     t.index ["room_id"], name: "index_image_rooms_on_room_id", using: :btree
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.date     "checkin_date"
+    t.date     "checkout_date"
+    t.integer  "number_of_guest"
+    t.float    "service_fee"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["user_id"], name: "index_reservations_on_user_id", using: :btree
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "room_id"
     t.integer  "user_id"
@@ -50,6 +61,17 @@ ActiveRecord::Schema.define(version: 20170315163246) do
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_reviews_on_room_id", using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
+
+  create_table "room_reservations", force: :cascade do |t|
+    t.integer  "room_id"
+    t.integer  "reservation_id"
+    t.integer  "status_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["reservation_id"], name: "index_room_reservations_on_reservation_id", using: :btree
+    t.index ["room_id"], name: "index_room_reservations_on_room_id", using: :btree
+    t.index ["status_id"], name: "index_room_reservations_on_status_id", using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -69,6 +91,13 @@ ActiveRecord::Schema.define(version: 20170315163246) do
     t.datetime "updated_at",      null: false
     t.index ["type_of_room_id"], name: "index_rooms_on_type_of_room_id", using: :btree
     t.index ["user_id"], name: "index_rooms_on_user_id", using: :btree
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "type_of_rooms", force: :cascade do |t|
@@ -110,8 +139,12 @@ ActiveRecord::Schema.define(version: 20170315163246) do
 
   add_foreign_key "amentities", "rooms"
   add_foreign_key "image_rooms", "rooms"
+  add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "rooms"
   add_foreign_key "reviews", "users"
+  add_foreign_key "room_reservations", "reservations"
+  add_foreign_key "room_reservations", "rooms"
+  add_foreign_key "room_reservations", "statuses"
   add_foreign_key "rooms", "type_of_rooms"
   add_foreign_key "rooms", "users"
 end

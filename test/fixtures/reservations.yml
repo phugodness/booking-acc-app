@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  checkin_date: 2017-03-19
+  checkout_date: 2017-03-19
+  number_of_guest: 
+  service_fee: 1.5
+  user: one
+
+two:
+  checkin_date: 2017-03-19
+  checkout_date: 2017-03-19
+  number_of_guest: 
+  service_fee: 1.5
+  user: two
