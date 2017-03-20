@@ -10,6 +10,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
       RoomReservation.create(room_id: params[:room_id], reservation_id: @reservation.id, status_id: 1)
+      ReservationMailer.booking_room(current_user, @reservation).deliver_later
       flash[:success] = 'successfully'
       redirect_to :back
     else
