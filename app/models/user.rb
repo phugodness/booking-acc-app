@@ -19,5 +19,5 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.image_file_name = auth.info.image
     end
-end
+  end
 end
