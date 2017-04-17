@@ -21,3 +21,9 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+#conversation-body {
+ max-height: 400px;
+ overflow-y: auto;
+ margin-bottom: 2em;
+}

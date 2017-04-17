@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   as :user do
     get 'users/profile', :to => 'devise/registrations#edit', :as => :user_root
   end
+  resources :personal_messages, only: [:new, :create]
+  resources :conversations, only: [:index, :show]
 end
