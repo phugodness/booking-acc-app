@@ -23,4 +23,8 @@ class User < ApplicationRecord
       user.image_file_name = auth.info.image
     end
   end
+
+  def online?
+    !Redis.new.get("user_#{self.id}_online").nil?
+  end
 end
