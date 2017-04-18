@@ -5,6 +5,6 @@ class Room < ApplicationRecord
   has_many :image_rooms, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :room_reservations
-  geocoded_by :address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  geocoded_by :address # can also be an IP address
+  after_validation :geocode # auto-fetch coordinates
 end

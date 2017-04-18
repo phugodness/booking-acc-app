@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :reviews
   end
   resources :reservations
+  post "/hook" => "reservations#hook"
   devise_for :users, :controllers => { :registrations => :registrations, :omniauth_callbacks => "callbacks"  }
   get 'home/index'
   get 'about/index'
