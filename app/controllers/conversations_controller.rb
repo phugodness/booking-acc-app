@@ -17,7 +17,7 @@ class ConversationsController < ApplicationController
   private
 
   def set_conversation
-    @conversation = Conversation.find_by(id: params[:id])
+    @conversation = Conversation.includes(:author, :receiver).find_by(id: params[:id])
   end
 
   def check_participating!

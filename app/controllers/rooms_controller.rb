@@ -4,14 +4,14 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    @rooms = Room.all.includes(:type_of_room, :user)
   end
 
   # GET /rooms/1
   # GET /rooms/1.json
   def show
     @reservation = Reservation.new
-    @room = Room.find_by_id(params[:id])
+    @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
       marker.lng room.longitude
@@ -75,16 +75,18 @@ class RoomsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_room
-      @room = Room.find(params[:id])
-    end
 
-    def init_data
-      @type_of_room = TypeOfRoom.all
-    end
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def room_params
-      params.require(:room).permit(:type_of_room_id, :user_id, :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, :longitude, :latitude)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_room
+    @room = Room.find(params[:id])
+  end
+
+  def init_data
+    @type_of_room = TypeOfRoom.all
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def room_params
+    params.require(:room).permit(:type_of_room_id, :user_id, :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, :longitude, :latitude)
+  end
 end

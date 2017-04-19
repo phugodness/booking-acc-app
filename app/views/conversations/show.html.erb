@@ -2,7 +2,7 @@
 
 <div id="conversation-main">
   <div id="conversation-body" data-conversation-id="<%= @conversation.id %>">
-    <%= render @conversation.personal_messages %>
+    <%= render @conversation.personal_messages.includes(:user) %>
   </div>
 
   <%= form_for @personal_message do |f| %>

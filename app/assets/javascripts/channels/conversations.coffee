@@ -3,7 +3,7 @@ jQuery(document).on 'turbolinks:load', ->
   messages = $('#conversation-body')
 
   if $('#current-user').size() > 0
-    App.conversations = App.cable.subscriptions.create "ConversationsChannel",
+    App.conversations = App.cable.subscriptions.create "NotificationsChannel",
       connected: ->
         # Called when the subscription is ready for use on the server
 

@@ -50,6 +50,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
+    bullet (5.3.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     ckeditor (4.2.2)
       cocaine
@@ -219,6 +222,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.4.0)
@@ -237,6 +241,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-daterangepicker-rails
   bootstrap-sass (~> 3.3.6)
+  bullet
   byebug
   ckeditor
   coffee-rails (~> 4.2)
