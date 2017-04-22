@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def notification
     flash.each do |message_type, message|
       content_tag(:div, class: "alert alert-#{message_type}") do

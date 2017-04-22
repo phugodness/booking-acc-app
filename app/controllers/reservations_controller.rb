@@ -17,19 +17,19 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    a = params[:reservation][:checkin_date].split('-')
-    params[:reservation][:checkin_date] = a[0]
-    params[:reservation][:checkout_date] = a[1]
+    params[:reservation][:checkin_date], params[:reservation][:checkout_date] = params[:reservation][:checkin_date].split('-')
 
     @reservation = Reservation.new(reservation_params)
-    # TODO, do transaction
-    if @reservation.save
-      RoomReservation.create(room_id: params[:room_id], reservation_id: @reservation.id, status_id: 1)
-      ReservationMailer.booking_room(current_user, @reservation).deliver_later
-      redirect_to @reservation.paypal_url(room_path(id: params[:room_id]))
-    else
-      flash[:danger] = @reservation.errors.messages
-      redirect_to room_path(id: params[:room_id])
+    ActiveRecord::Base.transaction do
+      begin
+        @reservation.save
+        RoomReservation.create(room_id: params[:room_id], reservation_id: @reservation.id, status_id: 1)
+        ReservationMailer.booking_room(current_user, @reservation).deliver_later
+        redirect_to @reservation.paypal_url(room_path(id: params[:room_id]))
+      rescue StandardError
+        flash[:danger] = @reservation.errors.messages
+        redirect_to room_path(id: params[:room_id])
+      end
     end
   end
 
