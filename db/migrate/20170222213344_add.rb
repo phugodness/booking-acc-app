@@ -1,6 +1,6 @@
 class Add < ActiveRecord::Migration[5.0]
   def up
-  add_attachment :users, :image
+    add_attachment :users, :image
   end
 
   def down

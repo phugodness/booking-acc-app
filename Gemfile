@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -16,9 +16,9 @@ gem 'bootstrap-daterangepicker-rails'
 gem 'pry-rails'
 gem 'ckeditor'
 gem 'bootstrap-datepicker-rails'
-gem "paperclip"
+gem 'paperclip'
 gem 'jquery-easing-rails'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
@@ -48,7 +48,7 @@ gem 'redis', '~> 3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-#User for authentication
+# User for authentication
 gem 'devise'
 
 gem 'geocoder'
@@ -60,7 +60,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'bullet'
-
 end
 
 group :development do

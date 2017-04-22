@@ -36,9 +36,9 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.save
         if params[:images]
-          params[:images].each { |image|
+          params[:images].each do |image|
             @room.image_rooms.create(image: image)
-          }
+          end
         end
         CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
         format.html { redirect_to @room, notice: 'Room was successfully created.' }

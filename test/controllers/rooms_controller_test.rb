@@ -5,17 +5,17 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
     @room = rooms(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get rooms_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_room_url
     assert_response :success
   end
 
-  test "should create room" do
+  test 'should create room' do
     assert_difference('Room.count') do
       post rooms_url, params: { room: { accomodates: @room.accomodates, address: @room.address, description: @room.description, house_rules: @room.house_rules, latitude: @room.latitude, longitude: @room.longitude, name: @room.name, number_of_bed: @room.number_of_bed, number_of_guest: @room.number_of_guest, price: @room.price, type_of_room_id: @room.type_of_room_id, user_id: @room.user_id } }
     end
@@ -23,22 +23,22 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to room_url(Room.last)
   end
 
-  test "should show room" do
+  test 'should show room' do
     get room_url(@room)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_room_url(@room)
     assert_response :success
   end
 
-  test "should update room" do
+  test 'should update room' do
     patch room_url(@room), params: { room: { accomodates: @room.accomodates, address: @room.address, description: @room.description, house_rules: @room.house_rules, latitude: @room.latitude, longitude: @room.longitude, name: @room.name, number_of_bed: @room.number_of_bed, number_of_guest: @room.number_of_guest, price: @room.price, type_of_room_id: @room.type_of_room_id, user_id: @room.user_id } }
     assert_redirected_to room_url(@room)
   end
 
-  test "should destroy room" do
+  test 'should destroy room' do
     assert_difference('Room.count', -1) do
       delete room_url(@room)
     end
