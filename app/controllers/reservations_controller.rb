@@ -34,6 +34,6 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(Reservation::DEFAULT_PARAMS << :room_id, :user_id)
+    params.require(:reservation).permit(Reservation::DEFAULT_PARAMS << :room_id)
   end
 end

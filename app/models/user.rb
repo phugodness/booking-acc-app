@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :github]
+
   has_many :rooms
   has_many :reviews
   has_many :reservations
@@ -11,8 +12,10 @@ class User < ApplicationRecord
   has_many :received_conversations, class_name: 'Conversation', foreign_key: 'receiver_id'
   has_many :personal_messages, dependent: :destroy
   # validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
   do_not_validate_attachment_file_type :image
   has_attached_file :image, default_url: '/img/:style/missing.png'
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
