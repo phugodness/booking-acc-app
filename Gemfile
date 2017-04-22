@@ -10,7 +10,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 
-gem 'jquery-rails'
 gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'
 gem 'ckeditor'
