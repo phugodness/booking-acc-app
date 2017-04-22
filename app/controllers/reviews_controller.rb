@@ -1,9 +1,13 @@
 class ReviewsController < ApplicationController
   def create
-    params[:review][:user_id] = current_user.id
-    @room = Room.find(params[:room_id])
-    @review = @room.reviews.create!(review_params)
-    redirect_to room_path(@room)
+    room = Room.find(params[:room_id])
+    review = room.reviews.create(review_params)
+    if review.save
+      flash[:success] = 'Create review successfully'
+    else
+      flash[:danger] = 'Fail to review'
+    end
+    redirect_to room_path(room)
   end
 
   private

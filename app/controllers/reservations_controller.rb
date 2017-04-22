@@ -22,18 +22,20 @@ class ReservationsController < ApplicationController
     params[:reservation][:checkout_date] = a[1]
 
     @reservation = Reservation.new(reservation_params)
+    # TODO do transaction
     if @reservation.save
       RoomReservation.create(room_id: params[:room_id], reservation_id: @reservation.id, status_id: 1)
       ReservationMailer.booking_room(current_user, @reservation).deliver_later
       redirect_to @reservation.paypal_url(room_path(id: params[:room_id]))
     else
-      flash[:danger] = 'failed'
+      flash[:danger] = @reservation.errors.messages
+      redirect_to room_path(id: params[:room_id])
     end
   end
 
   private
 
   def reservation_params
-    params.require(:reservation).permit(Reservation::DEFAULT_PARAMS << :room_id)
+    params.require(:reservation).permit(Reservation::DEFAULT_PARAMS)
   end
 end

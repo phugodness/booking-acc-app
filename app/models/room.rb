@@ -8,7 +8,7 @@ class Room < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :room_reservations
 
-  validates :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, :longitude, :latitude, presence: true
+  validates :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, presence: true
 
   geocoded_by :address # can also be an IP address
   after_validation :geocode # auto-fetch coordinates
