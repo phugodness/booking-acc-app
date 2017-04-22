@@ -3,9 +3,9 @@ class ReviewsController < ApplicationController
     room = Room.find(params[:room_id])
     review = room.reviews.create(review_params)
     if review.save
-      flash[:success] = 'Create review successfully'
+      flash[:success] = "successfully"
     else
-      flash[:danger] = 'Fail to review'
+      flash[:danger] = review.errors.messages
     end
     redirect_to room_path(room)
   end

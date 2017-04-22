@@ -22,7 +22,7 @@ class ReservationsController < ApplicationController
     params[:reservation][:checkout_date] = a[1]
 
     @reservation = Reservation.new(reservation_params)
-    # TODO do transaction
+    # TODO, do transaction
     if @reservation.save
       RoomReservation.create(room_id: params[:room_id], reservation_id: @reservation.id, status_id: 1)
       ReservationMailer.booking_room(current_user, @reservation).deliver_later
