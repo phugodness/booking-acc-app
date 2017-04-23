@@ -18,7 +18,6 @@
   </head>
   <body id="page-top" class="index">
     <!-- Navigation -->
-    <%= render 'layouts/nav'%>
 
     <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>

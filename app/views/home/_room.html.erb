@@ -1,0 +1,120 @@
+<div class="portfolio-modal modal fade" id=<%="portfolioModal#{room.id}"%> tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal">
+        <div class="lr">
+          <div class="rl">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="modal-body">
+              <!-- Project Details Go Here -->
+              <p id="notice"><%= notice %></p>
+              <p>
+                <strong>Type of room:</strong>
+                <%= room.type_of_room.name %>
+              </p>
+
+              <p>
+                <strong>User:</strong>
+                <%= room.user.name %>
+                <li>
+                  <%= room.user.name %> | <%= link_to 'send a message', new_personal_message_path(receiver_id: room.user) %>
+                </li>
+              </p>
+
+              <p>
+                <strong>Name:</strong>
+                <%= room.name %>
+              </p>
+
+              <p>
+                <strong>Address:</strong>
+                <%= room.address %>
+              </p>
+              <p>
+                <ul>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:internet)%>">Internet</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:air_conditioning)%>">Air conditioning</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:cable_tv)%>">Cable TV</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:breakfast)%>">Breakfast</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:parking)%>">Parking</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:elevator)%>">Elevator</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:heating)%>">Heating</li>
+                  <li style="text-decoration: <%=display_line_through room.amentity.try(:hot_tub)%>">Hot Tub</li>
+                </ul>
+              </p>
+              <p>
+                <strong>Number of guest:</strong>
+                <%= room.number_of_guest %>
+              </p>
+
+              <p>
+                <strong>Price:</strong>
+                <%= room.price %>
+              </p>
+
+              <p>
+                <strong>Accomodates:</strong>
+                <%= room.accomodates %>
+              </p>
+
+              <p>
+                <strong>Number of bed:</strong>
+                <%= room.number_of_bed %>
+              </p>
+
+              <p>
+                <strong>Description:</strong>
+                <%= room.description %>
+              </p>
+
+              <p>
+                <strong>House rules:</strong>
+                <%= room.house_rules %>
+              </p>
+
+              <p>
+                <strong>Image:</strong>
+                <% room.image_rooms.each do |u| %>
+                  <%= image_tag u.image.url%>
+                <% end%>
+              </p>
+              <%= render 'reservations/form', reservation: @reservation, room: room%>
+              <div style='width: 800px;'>
+                <div id="map" style='width: 800px; height: 400px;'>
+                </div>
+              </div>
+              <ul>
+                <% room.reviews.each do |r|%>
+                <li>
+                  <p>
+                    <strong>rank:</strong>
+                    <%= r.rank%>
+                  </p>
+                  <p>
+                    <strong>comment:</strong>
+                    <%= raw r.comment%>
+                  </p>
+                </li>
+                <% end %>
+              </ul>
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+</script>
