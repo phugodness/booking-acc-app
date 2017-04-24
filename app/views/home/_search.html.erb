@@ -1,0 +1,4 @@
+<%= search_form_for @q, url: search_index_path do |f|%>
+  <%= f.text_field :address_cont %>
+  <%= f.submit 'Search', class: 'page-scroll btn btn-xl'%>
+<% end %>

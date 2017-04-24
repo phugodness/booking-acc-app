@@ -46,6 +46,8 @@ gem 'redis', '~> 3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#Use for Advanced Search
+gem 'ransack'
 # User for authentication
 gem 'devise'
 

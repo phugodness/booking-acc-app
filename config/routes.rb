@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/index'
+
   root to: 'home#index'
 
   devise_for :users, controllers: { registrations: :registrations, omniauth_callbacks: 'callbacks' }
