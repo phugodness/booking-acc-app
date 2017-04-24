@@ -15,8 +15,6 @@
       <th>Number of bed</th>
       <th>Description</th>
       <th>House rules</th>
-      <th>Longitude</th>
-      <th>Latitude</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -34,8 +32,6 @@
         <td><%= room.number_of_bed %></td>
         <td><%= room.description %></td>
         <td><%= room.house_rules %></td>
-        <td><%= room.longitude %></td>
-        <td><%= room.latitude %></td>
         <td><%= link_to 'Show', room %></td>
         <td><%= link_to 'Edit', edit_room_path(room) %></td>
         <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,0 +1,37 @@
+<% if @searched_rooms.present?%>
+  <section id="portfolio" class="bg-light-gray">
+      <div class="row">
+        <% @searched_rooms.each do |room|%>
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                    <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <% if room.image_rooms.present?%>
+                <%= image_tag room.image_rooms.first.image.url, class:"img-responsive"%>
+              <% end %>
+            </a>
+            <div class="portfolio-caption">
+              <h4><%= room.name%></h4>
+              <p class="text-muted"><%= room.address%></p>
+            </div>
+          </div>
+        <% end%>
+      </div>
+  </section>
+  <% @searched_rooms.each do |room|%>
+    <%= render partial: 'room', locals:{room: room}%>
+  <% end %>
+<% else %>
+  <section id="portfolio" class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">Not Found</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

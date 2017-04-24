@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require conversations
 //= require underscore
+//= require cable
 //= require ckeditor/init
 //= require dropzone.min
 //= require gmaps/google
@@ -29,5 +31,10 @@ $(document).ready(function(){
   $('.datepicker').datepicker({
     format: 'mm-dd-yyyy'
   });
-  $('input[class="daterange"]').daterangepicker();
+  $('input[class="daterange"]').daterangepicker({
+    locale: {
+      format: 'DD/MM/YYYY'
+    }
+
+  });
 });

@@ -3,6 +3,7 @@ class ImageRoomsController < ApplicationController
   def new
     @image_room = ImageRoom.new
   end
+
   def index
     @image_room = ImageRoom.all
   end
@@ -12,13 +13,11 @@ class ImageRoomsController < ApplicationController
   def show
   end
 
-
   # GET /pictures/1/edit
   def edit
   end
 
   def create
-    binding.pry
     @image_room = ImageRoom.new(image_room_params)
     @image_room.product_id = params[:room_id]
     @image_room.image = params[:image]
@@ -42,7 +41,9 @@ class ImageRoomsController < ApplicationController
     @image_room.destroy
     render nothing: true
   end
+
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_image_room
     @image_room = ImageRoom.find(params[:id])

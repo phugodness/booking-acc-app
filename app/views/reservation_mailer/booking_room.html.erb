@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @user.name %></h1>
+    <h2>You've just created booking room</h2>
+    From: <%= @reservation.checkin_date%>
+    To: <%= @reservation.checkout_date%>
+    Guest: <%= @reservation.number_of_guest%>
+    Fee: <%= @reservation.service_fee%>
+    <%= @reservation.room_reservation.room.name%>
+    <%= @reservation.room_reservation.room.type_of_room.name%>
+  </body>
+</html>

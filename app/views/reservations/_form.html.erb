@@ -1,0 +1,13 @@
+<%= form_for reservation do |f| %>
+  <%= f.label :checkin_date%>
+  <%= f.text_field :checkin_date, class: 'daterange'%>
+
+  <%= f.label :number_of_guest%>
+  <%= f.number_field :number_of_guest %>
+
+  <%= f.label :service_fee%>
+  <%= f.number_field :service_fee %>
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <%= hidden_field_tag 'room_id', value = room.id%>
+  <%= f.submit%>
+<% end %>
