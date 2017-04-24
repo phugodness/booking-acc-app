@@ -21,9 +21,7 @@
               <p>
                 <strong>User:</strong>
                 <%= room.user.name %>
-                <li>
-                  <%= room.user.name %> | <%= link_to 'send a message', new_personal_message_path(receiver_id: room.user) %>
-                </li>
+                <%= link_to 'send a message', new_personal_message_path(receiver_id: room.user) %>
               </p>
 
               <p>
