@@ -28,3 +28,32 @@ If you have any question you can contact me via:
 ## How to run
 1. Ruby Version:  `2.3.0`
 2. Rails version: `5.0.1`
+
+# Prerequisites
+- Install Ubuntu 14.04 LTS (recommended)
+- Install oh-my-zsh for boosting your Git work
+- Install Git
+- Install rbenv or rvm
+ - Install Ruby
+ - Install Rails
+- Install PostgeSQL, and pgadmin for GUI
+
+# Guide
+- **Step 1**: Clone repo
+ - ```$ git clone git@github.com:phugodness/iptv.git```
+- **Step 2**: Create database
+ - ```$ cp config/database.yml.sample config/database.yml```
+ - modify <%= ENV['USERNAME'] %> and <%= ENV['PASSWORD'] %> in database.yml with your Postgres Login roles
+- **Step 3**:Install gem dependencies
+ - ```$ bundle install```
+- **Step 4**:Switch branch (because we mainly develop on ``develop branch``)
+ - ```$ git checkout develop```
+- **Step 5**:Setup Server
+ - ```$ rails db:setup```
+- **Step 6**:Seed for database
+ - ```$ rails db:seed```
+- **Step 7**:Start Server
+ - ```$ rails s```
+- **Step 8**: Enjoy
+
+### Description
