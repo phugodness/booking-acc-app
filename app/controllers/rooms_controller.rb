@@ -15,9 +15,9 @@ class RoomsController < ApplicationController
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
       marker.lng room.longitude
-      marker.json({
+      marker.json(
         custom_marker: "#{room.name}<br>#{room.price}$<br><img src='../img/home_marker.png' width='30' height='30'>"
-      })
+      )
     end
   end
 

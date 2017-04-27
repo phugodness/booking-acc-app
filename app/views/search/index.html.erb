@@ -40,11 +40,10 @@
   </div>
 </div>
 <script type="text/javascript">
-var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
-handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
-  markers = handler.addMarkers(<%=raw @hash.flatten.to_json %>);
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-});
-
+  var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
+  handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.flatten.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
 </script>
