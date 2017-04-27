@@ -83,7 +83,7 @@
               </p>
               <%= render 'reservations/form', reservation: @reservation, room: room%>
               <div style='width: 800px;'>
-                <div id="map" style='width: 800px; height: 400px;'>
+                <div id="map<%=room.id%>" style='width: 800px; height: 400px;'>
                 </div>
               </div>
               <ul>
@@ -110,8 +110,8 @@
 </div>
 <script type="text/javascript">
   handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+  handler.buildMap({ provider: {}, internal: {id: 'map<%=room.id%>'}}, function(){
+    markers = handler.addMarkers(<%=raw hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });
