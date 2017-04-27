@@ -8,8 +8,10 @@ class HomeController < ApplicationController
       @hash[i] = Gmaps4rails.build_markers(room) do |r, marker|
         marker.lat r.latitude
         marker.lng r.longitude
+        marker.json({
+          custom_marker: "#{r.name}<br>#{r.price}$<br><img src='../img/home_marker.png' width='30' height='30'>"
+        })
       end
     end
-    binding.pry
   end
 end

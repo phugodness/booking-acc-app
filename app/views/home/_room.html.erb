@@ -109,10 +109,13 @@
   </div>
 </div>
 <script type="text/javascript">
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map<%=room.id%>'}}, function(){
-    markers = handler.addMarkers(<%=raw hash.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
+  $('#portfolioModal<%=room.id%>').on('shown.bs.modal', function (e) {
+    var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
+    handler.buildMap({ internal:{ id: "map<%=room.id%>" }}, function(){
+      markers = handler.addMarkers(<%=raw hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      handler.getMap().setZoom(12);
+    });
   });
 </script>
