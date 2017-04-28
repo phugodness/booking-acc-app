@@ -94,9 +94,9 @@
 <h2>Add Review</h2>
 <%= render 'reviews/form' %>
 <script type="text/javascript">
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+  var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
+  handler.buildMap({ internal:{ id: "map" }}, function(){
+    var markers = handler.addMarkers(<%=raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });

@@ -21,8 +21,8 @@
         <% end%>
       </div>
   </section>
-  <% @searched_rooms.each do |room|%>
-    <%= render partial: 'room', locals:{room: room}%>
+  <% @searched_rooms.each_with_index do |room, i|%>
+    <%= render partial: 'room', locals:{room: room, hash: @hash[i]}%>
   <% end %>
 <% else %>
   <section id="portfolio" class="bg-light-gray">
@@ -35,3 +35,15 @@
     </div>
   </section>
 <% end %>
+<div style='width: 800px;'>
+  <div id="multi_markers" style='width: 800px; height: 400px;'>
+  </div>
+</div>
+<script type="text/javascript">
+  var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
+  handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.flatten.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+</script>

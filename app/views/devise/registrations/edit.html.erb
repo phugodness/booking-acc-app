@@ -47,7 +47,7 @@
   </div>
   <%= link_to image_tag(current_user.image.url(:original)), current_user.image.url %>
   <div class="field">
-    <%= f.label "Image"%>
+    <%= f.label :image%>
     <%= f.file_field :image, type: :file %>
   </div>
 

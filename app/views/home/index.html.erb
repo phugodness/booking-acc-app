@@ -170,7 +170,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4">|
+      @hash[i] = Gmaps4rails.build_markers(room)
                 <div class="team-member">
                     <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
                     <h4>Kay Garland</h4>
@@ -325,9 +326,9 @@
         </div>
     </div>
 </div> -->
-<%= render partial: 'room', locals:{room: @rooms[0]}%>
-<%= render partial: 'room', locals:{room: @rooms[1]}%>
-<%= render partial: 'room', locals:{room: @rooms[2]}%>
-<%= render partial: 'room', locals:{room: @rooms[3]}%>
-<%= render partial: 'room', locals:{room: @rooms[4]}%>
-<%= render partial: 'room', locals:{room: @rooms[5]}%>
+<%= render partial: 'room', locals:{room: @rooms[0], hash: @hash[0]}%>
+<%= render partial: 'room', locals:{room: @rooms[1], hash: @hash[1]}%>
+<%= render partial: 'room', locals:{room: @rooms[2], hash: @hash[2]}%>
+<%= render partial: 'room', locals:{room: @rooms[3], hash: @hash[3]}%>
+<%= render partial: 'room', locals:{room: @rooms[4], hash: @hash[4]}%>
+<%= render partial: 'room', locals:{room: @rooms[5], hash: @hash[5]}%>
