@@ -56,10 +56,8 @@ $(document).ready(function(){
       var thisYear = arg._d.getYear()+1900;   // Years are 1900 based
 
       var thisCompare = thisDate +"/"+ thisMonth +"/"+ thisYear;
-      console.log(thisCompare);
 
       if($.inArray(thisCompare,disabledArr)!=-1){
-        console.log("      ^--------- DATE FOUND HERE");
         return true; //arg._pf = {userInvalidated: true};
       }
     }
@@ -73,14 +71,12 @@ $(document).ready(function(){
     // Get the selected bound dates.
     var startDate = new Date(picker.startDate.format('DD/MM/YYYY').replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
     var endDate = new Date(picker.endDate.format('DD/MM/YYYY').replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
-    console.log(startDate+" to "+endDate);
 
     // Compare the dates again.
     var clearInput = false;
     for(i=0;i<disabledArr.length;i++){
       disabledDate = new Date(disabledArr[i].replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
       if(startDate<disabledDate && endDate>disabledDate){
-        console.log("Found a disabled Date in selection!");
         clearInput = true;
       }
     }
@@ -95,7 +91,6 @@ $(document).ready(function(){
 
       // To clear input field and keep calendar opened.
       $(this).val("").focus();
-      console.log("Cleared the input field...");
 
       // Alert user!
       alert("Your range selection includes disabled dates!");
