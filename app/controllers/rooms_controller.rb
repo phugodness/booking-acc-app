@@ -12,6 +12,11 @@ class RoomsController < ApplicationController
   def show
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
+    gon.booked_date = []
+    @room.room_reservations.map(&:reservation).collect do |x|
+      x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
+    end
+
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
       marker.lng room.longitude

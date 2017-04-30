@@ -33,7 +33,7 @@ $(document).ready(function(){
   });
 
   // Define the disabled date array
-  var disabledArr = ["12/04/2017","13/04/2017","12/05/2017"];
+  var disabledArr = gon.booked_date
 
   // Function to draw the calendar accounting the disabled dates.
   $('input[class="daterange"]').daterangepicker({
@@ -71,14 +71,15 @@ $(document).ready(function(){
   $('input[class="daterange"]').on("apply.daterangepicker",function(e,picker){
 
     // Get the selected bound dates.
-    var startDate = picker.startDate.format('DD/MM/YYYY')
-    var endDate = picker.endDate.format('DD/MM/YYYY')
+    var startDate = new Date(picker.startDate.format('DD/MM/YYYY').replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
+    var endDate = new Date(picker.endDate.format('DD/MM/YYYY').replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
     console.log(startDate+" to "+endDate);
 
     // Compare the dates again.
     var clearInput = false;
     for(i=0;i<disabledArr.length;i++){
-      if(startDate<disabledArr[i] && endDate>disabledArr[i]){
+      disabledDate = new Date(disabledArr[i].replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"))
+      if(startDate<disabledDate && endDate>disabledDate){
         console.log("Found a disabled Date in selection!");
         clearInput = true;
       }
