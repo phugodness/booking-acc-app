@@ -1,17 +1,21 @@
-<div class="" style="position: fixed">
+<div class="reservation_form" style="position: fixed">
   <%= form_for reservation do |f| %>
-    <%= f.label :checkin_date%>
-    <%= f.text_field :checkin_date, class: 'daterange'%>
+    <div class="reservation_form_price">
+      <%= number_to_currency(room.price, precision:0)%>
+      per night
+    </div>
+    <%= f.label :checkin_date, 'Checkin - Checkout Date'%>
+    <%= f.text_field :checkin_date, class: 'daterange', size: 40, style: 'border-radius: 3px; padding: 6px 15px;'%>
 
     <%= f.label :number_of_guest%>
-    <%= f.number_field :number_of_guest %>
+    <%= f.number_field :number_of_guest, class: 'form-control' %>
 
     <%= f.label :service_fee%>
-    <%= f.number_field :service_fee %>
+    <%= f.number_field :service_fee, class: 'form-control' %>
     <%= f.hidden_field :user_id, value: current_user.id%>
     <%= hidden_field_tag 'room_id', value = room.id%>
     <br>
-    <%= f.submit%>
+    <%= f.submit 'Book Now', class: 'btn btn-xl', style: 'width: 100%;'%>
   <% end %>
 
 </div>

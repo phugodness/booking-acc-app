@@ -1,3 +1,24 @@
 // Place all the styles related to the reservations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.reservation_form {
+  border-left: 6px solid #ccc;
+  color: #000;
+  border-color: #2196F3;
+  padding: 0.01em 16px;
+}
+.reservation_form_price {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  background: #141E30;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border: 0;
+  color: #fff;
+  height: 50px;
+  padding: 13px 20px 5px;
+  width: 100%;
+  z-index: 1;
+  overflow-y: hidden;
+}

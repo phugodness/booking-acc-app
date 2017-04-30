@@ -56,3 +56,9 @@
 input[type="text"] {
   color: #000 !important;
 }
+.fa-chevron-left:before {
+  content: "\f053" !important;
+}
+.fa-chevron-right:before {
+  content: "\f054" !important;
+}
