@@ -22,3 +22,8 @@
   z-index: 1;
   overflow-y: hidden;
 }
+.reservation_form_price:hover {
+  background: #fff;  /* fallback for old browsers */
+  color: #141E30;
+  border-bottom: 1px solid #141E30;
+}
