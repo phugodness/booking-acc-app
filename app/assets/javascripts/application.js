@@ -96,4 +96,11 @@ $(document).ready(function(){
       alert("Your range selection includes disabled dates!");
     }
   });
+  // link to anchor
+  $('a').click(function(){
+      $('html, body').animate({
+          scrollTop: $( $(this).attr('href') ).offset().top
+      }, 500);
+      return false;
+  });
 });
