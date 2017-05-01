@@ -117,6 +117,8 @@
       <hr>
       <div class="row" id='reviews'>
         <b>Reviews</b>
+        <div class='star-rating' data-score=<%= @avg_rating %>></div>
+        <em><%= pluralize(@reviews.size, 'review')%></em>
         <hr>
         <% @room.reviews.includes(:user).each do |r|%>
           <div class="">
@@ -126,7 +128,10 @@
                 <b><%= r.user.name%></b>
                 <%= r.created_at%>
                 <br>
-                <%= raw r.comment%>
+                <div class="reviews">
+                  <div class="star-rating" data-score= <%= r.rank %> ></div>
+                  <p><%=raw r.comment %></p>
+                </div>
               </div>
               <div class="col-md-2">
                 <b>Rank</b><br>
@@ -163,4 +168,16 @@
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });
+
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+          return $(this).attr('data-score');
+  }
+  });
+  $('#star-rating').raty({
+    path: '/assets',
+    scoreName: 'review[rank]'
+});
 </script>

@@ -12,6 +12,13 @@ class RoomsController < ApplicationController
   def show
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
+
+    @reviews = @room.reviews.to_a
+    @avg_rating = if @reviews.blank?
+      0
+    else
+      @room.reviews.average(:rank).round(2)
+    end
     gon.booked_date = []
     @room.room_reservations.includes(:reservation).map(&:reservation).collect do |x|
       x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }

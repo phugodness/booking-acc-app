@@ -1,9 +1,10 @@
 <%= form_for([@room, @room.reviews.build]) do |f| %>
   <p>
-    <%= f.label :rank %><br>
-    <%= f.select :rank, (1...10).collect{|u| [u,u]} %>
+    <%= f.label :rank %>
+    <div class="col-sm-6" id='star-rating'></div>
   </p>
   <p>
+    <br>
     <%= f.label :comment %><br>
     <%= f.cktext_area :comment %>
   </p>

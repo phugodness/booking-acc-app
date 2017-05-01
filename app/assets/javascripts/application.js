@@ -21,6 +21,7 @@
 //= require bootstrap.min
 //= require bootstrap-datepicker
 //= require moment
+//= require jquery.raty
 //= require daterangepicker
 //= require agency.min
 //= require jquery.easing
