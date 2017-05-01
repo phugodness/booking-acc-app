@@ -20,7 +20,7 @@ class RoomsController < ApplicationController
       @room.reviews.average(:rank).round(2)
     end
     gon.booked_date = []
-    @room.room_reservations.includes(:reservation).map(&:reservation).collect do |x|
+    @room.reservations.collect do |x|
       x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
     end
 

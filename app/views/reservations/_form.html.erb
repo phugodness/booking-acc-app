@@ -13,7 +13,8 @@
     <%= f.label :service_fee%>
     <%= f.number_field :service_fee, class: 'form-control' %>
     <%= f.hidden_field :user_id, value: current_user.id%>
-    <%= hidden_field_tag 'room_id', value = room.id%>
+    <%= f.hidden_field :room_id, value: room.id%>
+    <%= f.hidden_field :status_id, value: 1%>
     <br>
     <%= f.submit 'Book Now', class: 'btn btn-xl', style: 'width: 100%;'%>
   <% end %>
