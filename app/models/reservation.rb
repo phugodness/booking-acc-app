@@ -2,7 +2,8 @@ class Reservation < ApplicationRecord
   DEFAULT_PARAMS = [:checkin_date, :checkout_date, :number_of_guest, :service_fee, :user_id].freeze
 
   belongs_to :user
-  has_one :room_reservation
+  belongs_to :room
+  belongs_to :status
 
   validates :checkin_date, :checkout_date, :number_of_guest, :service_fee, presence: true
 

@@ -6,7 +6,7 @@ class Room < ApplicationRecord
   has_one :amentity
   has_many :image_rooms, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :room_reservations, dependent: :destroy
+  has_many :reservations, dependent: :destroy
 
   validates :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, presence: true
 
