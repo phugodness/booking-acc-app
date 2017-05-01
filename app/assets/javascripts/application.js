@@ -27,20 +27,31 @@
 //= require contact_me
 //= require turbolinks
 //= require_tree .
+
 $(document).ready(function(){
   $('.datepicker').datepicker({
     format: 'mm-dd-yyyy'
   });
 
+  today = moment().format('DD/MM/YYYY')
   // Define the disabled date array
   var disabledArr = gon.booked_date
+  for (i in disabledArr) {
+    a = today == disabledArr[i]
+    if (a) {
+      today = (moment(today, 'DD/MM/YYYY').add(1,'days')).format('DD/MM/YYYY')
+    }
+  }
+
 
   // Function to draw the calendar accounting the disabled dates.
   $('input[class="daterange"]').daterangepicker({
     locale: {
-      format: 'DD/MM/YYYY'
+      format: 'DD/MM/YYYY',
+      cancelLabel: 'Clear'
     },
-
+    minDate: today,
+    endDate: today,
     isInvalidDate: function(arg){
       //console.log(arg);
 
@@ -95,6 +106,9 @@ $(document).ready(function(){
       // Alert user!
       alert("Your range selection includes disabled dates!");
     }
+  });
+  $('input[class="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
   });
   // link to anchor
   $('a').click(function(){
