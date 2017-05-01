@@ -10,7 +10,7 @@
     To: <%= @reservation.checkout_date%>
     Guest: <%= @reservation.number_of_guest%>
     Fee: <%= @reservation.service_fee%>
-    <%= @reservation.room_reservation.room.name%>
-    <%= @reservation.room_reservation.room.type_of_room.name%>
+    <%= @reservation.room.name%>
+    <%= @reservation.room.type_of_room.name%>
   </body>
 </html>
