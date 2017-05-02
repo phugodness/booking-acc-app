@@ -1,45 +1,36 @@
 class ImageRoomsController < ApplicationController
-  before_action :set_image_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_image_room, only: [:destroy, :remove_image]
   def new
     @image_room = ImageRoom.new
   end
 
-  def index
-    @image_room = ImageRoom.all
-  end
-
-  # GET /pictures/1
-  # GET /pictures/1.json
-  def show
-  end
-
-  # GET /pictures/1/edit
-  def edit
-  end
-
   def create
-    @image_room = ImageRoom.new(image_room_params)
-    @image_room.product_id = params[:room_id]
-    @image_room.image = params[:image]
-    @image_room.save!
-    render json: @image_room
-  end
-
-  def update
-    respond_to do |format|
-      if @image_room.update(image_room_params)
-        format.html { redirect_to @image_room, notice: 'Image was successfully updated.' }
-        format.json { render :show, status: :ok, location: @image_room }
-      else
-        format.html { render :edit }
-        format.json { render json: @image_room.errors, status: :unprocessable_entity }
-      end
+    @image_room = ImageRoom.create(image_room_params)
+    if @image_room.save
+      render json: { message: 'success', fileID: @image_room.id }, status: 200
+    else
+      #  you need to send an error header, otherwise Dropzone
+      #  will not interpret the response as an error:
+      render json: { error: @image_room.errors.full_messages.join(',') }, status: 400
     end
   end
 
   def destroy
-    @image_room.destroy
-    render nothing: true
+    if @image_room.destroy
+      render json: { message: 'File deleted from server' }
+    else
+      render json: { message: @image_room.errors.full_messages.join(',') }
+    end
+  end
+
+  def remove_image
+    @image_room = ImageRoom.find(params[:id])
+    if @image_room.destroy
+      flash[:notice] = "Successfully deleted photo!"
+      redirect_to :back
+    else
+      flash[:alert] = "Error deleting photo!"
+    end
   end
 
   private
@@ -51,6 +42,6 @@ class ImageRoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def image_room_params
-    params.require(:image_room).permit(:image_room_id, :image)
+    params.require(:image_room).permit(:image, :room_id)
   end
 end

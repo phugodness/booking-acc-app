@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :images]
   before_action :init_data
   # GET /rooms
   # GET /rooms.json
@@ -40,6 +40,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+    @image_room = ImageRoom.new
   end
 
   # POST /rooms
@@ -56,7 +57,7 @@ class RoomsController < ApplicationController
           end
         end
         CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to new_image_room_path(room_id: @room.id) }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
@@ -89,6 +90,13 @@ class RoomsController < ApplicationController
     end
   end
 
+  def images
+    @images = @room.image_rooms
+    # @image.each do |x|
+    #   x['url'] = x.url
+    # end
+    render json: @images.to_json(methods: :url)
+  end
   private
 
   # Use callbacks to share common setup or constraints between actions.
