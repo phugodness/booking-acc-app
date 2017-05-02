@@ -61,6 +61,9 @@ gem 'bootstrap-datepicker-rails'
 # Font awesome
 gem 'font-awesome-rails'
 
+# Pass date from server to Js
+gem 'gon'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

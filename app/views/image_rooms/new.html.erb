@@ -1,2 +1,9 @@
-<h1>ImageRooms#new</h1>
-<p>Find me in app/views/image_rooms/new.html.erb</p>
+<%= form_for(@image_room, html: { multipart: true, class: "dropzone"}) do |f|  %>
+  <div class="fallback">
+    <%= f.file_field :image %><br>
+    <%= f.submit "Upload" %>
+  </div>
+  <%= hidden_field_tag 'image_room[room_id]', params[:room_id], class: 'room_id'%>
+<% end %>
+
+<br>

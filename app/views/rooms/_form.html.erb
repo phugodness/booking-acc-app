@@ -56,12 +56,14 @@
     <%= f.text_area :house_rules %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= file_field_tag "images[]", type: :file, multiple: true %>
-  </div>
-
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
+<%= form_for(@image_room, html: { multipart: true, class: "dropzone", id: 'edit_image_room'}) do |f|  %>
+  <div class="fallback">
+    <%= f.file_field :image %><br>
+    <%= f.submit "Upload" %>
+  </div>
+  <%= hidden_field_tag 'image_room[room_id]', @room.id, class: 'room_id'%>
 <% end %>

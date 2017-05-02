@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :images]
   before_action :init_data
   # GET /rooms
   # GET /rooms.json
@@ -12,6 +12,18 @@ class RoomsController < ApplicationController
   def show
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
+
+    @reviews = @room.reviews.to_a
+    @avg_rating = if @reviews.blank?
+      0
+    else
+      @room.reviews.average(:rank).round(2)
+    end
+    gon.booked_date = []
+    @room.reservations.collect do |x|
+      x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
+    end
+
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
       marker.lng room.longitude
@@ -28,6 +40,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+    @image_room = ImageRoom.new
   end
 
   # POST /rooms
@@ -44,7 +57,7 @@ class RoomsController < ApplicationController
           end
         end
         CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to new_image_room_path(room_id: @room.id) }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
@@ -77,6 +90,13 @@ class RoomsController < ApplicationController
     end
   end
 
+  def images
+    @images = @room.image_rooms
+    # @image.each do |x|
+    #   x['url'] = x.url
+    # end
+    render json: @images.to_json(methods: :url)
+  end
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -1,3 +1,3 @@
 class Status < ApplicationRecord
-  has_many :room_reservations
+  has_many :reservations
 end

@@ -1,8 +1,9 @@
 class Reservation < ApplicationRecord
-  DEFAULT_PARAMS = [:checkin_date, :checkout_date, :number_of_guest, :service_fee, :user_id].freeze
+  DEFAULT_PARAMS = [:checkin_date, :checkout_date, :number_of_guest, :service_fee, :user_id, :status_id, :room_id, :total].freeze
 
   belongs_to :user
-  has_one :room_reservation
+  belongs_to :room
+  belongs_to :status
 
   validates :checkin_date, :checkout_date, :number_of_guest, :service_fee, presence: true
 
@@ -13,8 +14,8 @@ class Reservation < ApplicationRecord
       upload: 1,
       return: "#{Rails.application.secrets.app_host}#{return_path}",
       invoice: id,
-      amount: room_reservation.room.price * number_of_guest + service_fee,
-      rooms: room_reservation.room.name + "(#{checkin_date} -- #{checkout_date})",
+      amount: room.price * number_of_guest + service_fee,
+      rooms: room.name + "(#{checkin_date} -- #{checkout_date})",
       item_number: number_of_guest,
       quantity: '1'
     }

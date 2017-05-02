@@ -1,68 +1,154 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <ul class="nav nav-pills nav-justified">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#google-map">Location</a></li>
+          <li><a href="#reviews">Review</a></li>
+        </ul>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <h2>
+            <%= @room.name %>
+          </h2>
+          <i>
+            <%= @room.address %>
+          </i>
+        </div>
+        <div class="col-md-4">
+          <%= image_tag(@room.user.image.url(:original), size: 40, class: 'img-circle')%>
+          <b>
+            <br>
+            <%= @room.user.name %>
+          </b>
+          <br>
+          <%= link_to 'send a message', new_personal_message_path(receiver_id: @room.user) %>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <i class="<%= type_of_room_display(@room.type_of_room)%>" aria-hidden="true" style="font-size:40px;"></i>
+          <br>
+          <%= @room.type_of_room.name %>
+        </div>
+        <div class="col-md-3 text-center">
+          <i class="fa fa-user-o" aria-hidden="true" style="font-size:40px;"></i>
+          <br>
+          <%= pluralize(@room.number_of_guest, 'guest') %>
+        </div>
+        <div class="col-md-3 text-center">
+          <i class="fa fa-bed" aria-hidden="true" style="font-size:40px;"></i>
+          <br>
+          <%= pluralize(@room.number_of_bed, 'bed') %>
+        </div>
+        <div class="col-md-3 text-center">
+          <i class="fa fa-group" aria-hidden="true" style="font-size:40px;"></i>
+          <br>
+          <%= pluralize(@room.accomodates, 'accomodate') %>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id='overview'>
+        <b>Description</b>
+        <p>
+          <%= @room.description %>
+        </p>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-3">
+          <b>House rules</b>
+        </div>
+        <div class="col-md-9">
+          <%= @room.house_rules %>
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <b>Amentities</b>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-6">
+                <%= icon_content('fa fa-globe', 'Internet', @room.amentity.try(:internet))%><hr>
+              </div>
+              <div class="col-md-6">
+                <%= icon_content('fa fa-home', 'air_conditioning', @room.amentity.try(:air_conditioning))%><hr>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= icon_content('fa fa-tv', 'cable_tv', @room.amentity.try(:cable_tv))%><hr>
+              </div>
+              <div class="col-md-6">
+                <%= icon_content('fa fa-cutlery', 'breakfast', @room.amentity.try(:breakfast))%><hr>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= icon_content('fa fa-car', 'parking', @room.amentity.try(:parking))%><hr>
+              </div>
+              <div class="col-md-6">
+                <%= icon_content('fa fa-caret-square-o-up', 'elevator', @room.amentity.try(:elevator))%><hr>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= icon_content('fa fa-thermometer-full', 'heating', @room.amentity.try(:heating))%><hr>
+              </div>
+              <div class="col-md-6">
+                <%= icon_content('fa fa-bath', 'hot_tub', @room.amentity.try(:hot_tub))%><hr>
+              </div>
+            </div>
+        </div>
+      </div>
 
-<p>
-  <strong>Type of room:</strong>
-  <%= @room.type_of_room.name %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @room.user.name %>
-  <li>
-    <%= @room.user.name %> | <%= link_to 'send a message', new_personal_message_path(receiver_id: @room.user) %>
-  </li>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @room.name %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @room.address %>
-</p>
-<p>
-  <ul>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:internet)%>">Internet</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:air_conditioning)%>">Air conditioning</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:cable_tv)%>">Cable TV</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:breakfast)%>">Breakfast</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:parking)%>">Parking</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:elevator)%>">Elevator</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:heating)%>">Heating</li>
-    <li style="text-decoration: <%=display_line_through @room.amentity.try(:hot_tub)%>">Hot Tub</li>
-  </ul>
-</p>
-<p>
-  <strong>Number of guest:</strong>
-  <%= @room.number_of_guest %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @room.price %>
-</p>
-
-<p>
-  <strong>Accomodates:</strong>
-  <%= @room.accomodates %>
-</p>
-
-<p>
-  <strong>Number of bed:</strong>
-  <%= @room.number_of_bed %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @room.description %>
-</p>
-
-<p>
-  <strong>House rules:</strong>
-  <%= @room.house_rules %>
-</p>
+      <div class="row" id='google-map'>
+        <div style='width: 800px;'>
+          <div id="map" style='width: 768px; height: 400px;'>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id='reviews'>
+        <b>Reviews</b>
+        <div class='star-rating' data-score=<%= @avg_rating %>></div>
+        <em><%= pluralize(@reviews.size, 'review')%></em>
+        <hr>
+        <% @room.reviews.includes(:user).each do |r|%>
+          <div class="">
+            <div class="row">
+              <div class="col-md-10">
+                <%= image_tag(r.user.image.url(:original), size: 40, class: 'img-circle')%>
+                <b><%= r.user.name%></b>
+                <%= r.created_at%>
+                <br>
+                <div class="reviews">
+                  <p><%=raw r.comment %></p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="star-rating" data-score= <%= r.rank %> ></div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+      <div class="row">
+        <%= render 'reviews/form' %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <%= render 'reservations/form', reservation: @reservation, room: @room%>
+    </div>
+  </div>
+</div>
 
 <p>
   <strong>Image:</strong>
@@ -70,29 +156,9 @@
     <%= image_tag u.image.url%>
   <% end%>
 </p>
-<%= render 'reservations/form', reservation: @reservation, room: @room%>
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'>
-  </div>
-</div>
-<ul>
-  <% @room.reviews.each do |r|%>
-  <li>
-    <p>
-      <strong>rank:</strong>
-      <%= r.rank%>
-    </p>
-    <p>
-      <strong>comment:</strong>
-      <%= raw r.comment%>
-    </p>
-  </li>
-  <% end %>
-</ul>
-<h2>Add Review</h2>
-<%= render 'reviews/form' %>
+
 <script type="text/javascript">
   var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
   handler.buildMap({ internal:{ id: "map" }}, function(){
@@ -100,4 +166,16 @@
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });
+
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+          return $(this).attr('data-score');
+  }
+  });
+  $('#star-rating').raty({
+    path: '/assets',
+    scoreName: 'review[rank]'
+});
 </script>

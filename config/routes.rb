@@ -18,9 +18,15 @@ Rails.application.routes.draw do
     get 'users/profile', to: 'devise/registrations#edit', as: :user_root
   end
 
+  delete'/image_rooms/remove_image/:id' => 'image_rooms#remove_image', as: :remove_image
+
   resources :rooms do
     resources :reviews
+    collection do
+      get 'images/:id' => 'rooms#images'
+    end
   end
+  resources :image_rooms
   resources :reservations
   resources :personal_messages, only: [:new, :create]
   resources :conversations, only: [:index, :show]

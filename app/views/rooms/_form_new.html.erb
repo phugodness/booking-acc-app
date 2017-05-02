@@ -1,0 +1,62 @@
+<%= form_for room, :html => { :multipart => true } do |f| %>
+  <% if room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :type_of_room_id %>
+    <%= f.select :type_of_room_id, @type_of_room.collect{ |u| [u.name, u.id]} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number_of_guest %>
+    <%= f.text_field :number_of_guest %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :accomodates %>
+    <%= f.text_field :accomodates %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number_of_bed %>
+    <%= f.text_field :number_of_bed %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :house_rules %>
+    <%= f.text_area :house_rules %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
