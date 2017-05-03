@@ -1,4 +1,4 @@
-/*
+  /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -88,4 +88,14 @@ input[type="text"] {
 #carousel_modal .modal-content {
   background-color: transparent !important;
   padding: 0px !important;
+}
+.carousel .item {
+  height: 672px !important;
+}
+
+.item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 300px !important;
 }

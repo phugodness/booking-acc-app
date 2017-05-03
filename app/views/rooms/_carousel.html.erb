@@ -27,18 +27,18 @@
             <div class="item active">
               <%= image_tag @room.image_rooms.first.image.url%>
               <div class="carousel-caption">
-                <h3>Slide 1</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                <h3><%= @room.name%></h3>
+                <p><%= @room.address%></p>
               </div><!-- /.carousel-caption -->
             </div><!-- /Slide1 -->
 
             <% @room.image_rooms.drop(1).each do |x| %>
               <!-- Slide 2 -->
-              <div class="item ">
+              <div class="item">
                 <%= image_tag x.image.url%>
                 <div class="carousel-caption">
-                  <h3>Slide 2</h3>
-                  <p>Etiam porta sem malesuada magna mollis euismod.</p>
+                  <h3><%= @room.name%></h3>
+                  <p><%= @room.address%></p>
                 </div><!-- /.carousel-caption -->
               </div><!-- /Slide2 -->
             <% end %>
