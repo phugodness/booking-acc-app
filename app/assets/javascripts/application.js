@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.easing
+//= require jquery.raty
 //= require conversations
 //= require underscore
 //= require cable
@@ -21,10 +23,8 @@
 //= require bootstrap.min
 //= require bootstrap-datepicker
 //= require moment
-//= require jquery.raty
 //= require daterangepicker
 //= require agency.min
-//= require jquery.easing
 //= require contact_me
 //= require turbolinks
 //= require_tree .
@@ -218,5 +218,15 @@ $(document).ready(function(){
           scrollTop: $( $(this).attr('href') ).offset().top
       }, 500);
       return false;
+  });
+  $('.carousel').carousel({
+    interval: 6000
+  })
+  $('.carousel-control.left').click(function() {
+    $('#myCarousel').carousel('prev');
+  });
+
+  $('.carousel-control.right').click(function() {
+    $('#myCarousel').carousel('next');
   });
 });

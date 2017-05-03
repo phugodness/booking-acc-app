@@ -1,3 +1,7 @@
+<%= render 'carousel' %>
+
+<button type="button" class="btn btn-xl" data-toggle="modal" data-target="#carousel_modal">Preview</button>
+
 <div class="container">
   <div class="row">
     <div class="col-md-8">
@@ -150,12 +154,6 @@
   </div>
 </div>
 
-<p>
-  <strong>Image:</strong>
-  <% @room.image_rooms.each do |u| %>
-    <%= image_tag u.image.url%>
-  <% end%>
-</p>
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
 
@@ -177,5 +175,7 @@
   $('#star-rating').raty({
     path: '/assets',
     scoreName: 'review[rank]'
-});
+  });
+  $('#myCarousel').carousel();
+
 </script>
