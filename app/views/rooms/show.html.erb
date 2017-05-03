@@ -1,9 +1,15 @@
-<div class="">
-  <%= render 'carousel' %>
-</div>
-
-<button type="button" class="btn btn-xl" data-toggle="modal" data-target="#carousel_modal">Preview</button>
-
+<% if @room.image_rooms.present?%>
+  <div style="position:relative;" data-toggle="modal" data-target="#carousel_modal">
+    <%= image_tag @room.image_rooms.first.url(:original)%>
+    <div style="position:absolute;left:0;bottom:0;">
+      <button type="button" class="btn btn-xl">Click to Preview</button>
+    </div>
+  </div>
+  <div class="">
+    <%= render 'carousel' %>
+  </div>
+<% end %>
+<hr>
 <div class="container">
   <div class="row">
     <div class="col-md-8">
@@ -150,7 +156,7 @@
         <%= render 'reviews/form' %>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 reservations">
       <%= render 'reservations/form', reservation: @reservation, room: @room%>
     </div>
   </div>

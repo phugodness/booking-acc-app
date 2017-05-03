@@ -13,22 +13,26 @@ class RoomsController < ApplicationController
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
 
+    # reviews of room
     @reviews = @room.reviews.to_a
-    @avg_rating = if @reviews.blank?
-      0
-    else
-      @room.reviews.average(:rank).round(2)
-    end
+    @avg_rating = @reviews.blank? ? 0 : @room.reviews.average(:rank).round(2)
+    # booked dates
     gon.booked_date = []
     @room.reservations.collect do |x|
       x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
     end
-
+    # Google map
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
       marker.lng room.longitude
       marker.json(
-        custom_marker: "#{room.name}<br>#{room.price}$<br><img src='../img/home_marker.png' width='30' height='30'>"
+        custom_marker: "<div style='text-align:center'>
+        #{room.name}
+        <div style='font-size: 16px'>
+        <b>#{room.price}$</b>
+        </div>
+        <img src='../img/home_marker.png' width='30' height='30'>
+        </div>"
       )
     end
   end
@@ -97,6 +101,7 @@ class RoomsController < ApplicationController
     # end
     render json: @images.to_json(methods: :url)
   end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

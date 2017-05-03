@@ -8,4 +8,8 @@ class ImageRoom < ApplicationRecord
   def url
     image.url(:medium)
   end
+
+  def url(size)
+    image.url(size.to_sym)
+  end
 end

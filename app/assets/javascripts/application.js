@@ -30,6 +30,7 @@
 //= require_tree .
 
 $(document).ready(function(){
+
   // -----Dropzone------
   Dropzone.autoDiscover = false;
 
@@ -131,6 +132,8 @@ $(document).ready(function(){
       });
     }
   });
+
+  // --------date picker-----
   $('.datepicker').datepicker({
     format: 'mm-dd-yyyy'
   });
@@ -144,7 +147,6 @@ $(document).ready(function(){
       today = (moment(today, 'DD/MM/YYYY').add(1,'days')).format('DD/MM/YYYY')
     }
   }
-
 
   // Function to draw the calendar accounting the disabled dates.
   $('input[class="daterange"]').daterangepicker({
@@ -175,8 +177,7 @@ $(document).ready(function(){
       }
     }
 
-  }).focus(); // This focus is to open the calendar on page load.
-
+  })
 
   // Function to disallow a range selection that includes disabled dates.
   $('input[class="daterange"]').on("apply.daterangepicker",function(e,picker){
@@ -212,6 +213,7 @@ $(document).ready(function(){
   $('input[class="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
       $(this).val('');
   });
+
   // link to anchor
   $('a').click(function(){
       $('html, body').animate({
@@ -219,6 +221,8 @@ $(document).ready(function(){
       }, 500);
       return false;
   });
+
+  // -----Carousel-----
   $('.carousel').carousel({
     interval: 6000
   })

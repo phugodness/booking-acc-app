@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @rooms = Room.includes(:type_of_room, :user, :amentity, :image_rooms, :reviews).take(6)
+    @rooms = Room.includes(:type_of_room, :user, :amentity).take(6)
     @reservation = Reservation.new
     @q = Room.ransack(params[:q])
     @hash = []
