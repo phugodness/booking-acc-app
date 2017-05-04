@@ -96,10 +96,7 @@ class RoomsController < ApplicationController
 
   def images
     @images = @room.image_rooms
-    # @image.each do |x|
-    #   x['url'] = x.url
-    # end
-    render json: @images.to_json(methods: :url)
+    render json: @images.to_json(methods: :url_medium)
   end
 
   private

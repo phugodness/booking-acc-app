@@ -90,7 +90,7 @@ $(document).ready(function(){
        $.each(data, function(index, val) {
            var mockFile = { name: val.image_file_name, size: val.image_file_size };
            thisDropZone.emit("addedfile", mockFile);
-           thisDropZone.emit("thumbnail", mockFile, val.url);
+           thisDropZone.emit("thumbnail", mockFile, val.url_medium);
            thisDropZone.emit("complete", mockFile);
 
            $(".dz-remove").eq(index).attr("id", val.id);
