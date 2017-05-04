@@ -9,7 +9,13 @@ class SearchController < ApplicationController
         marker.lat r.latitude
         marker.lng r.longitude
         marker.json(
-          custom_marker: "#{r.name}<br>#{r.price}$<br><img src='../img/home_marker.png' width='30' height='30'>"
+          custom_marker:  "<div style='text-align:center'>
+                          #{r.name}
+                          <div style='font-size: 16px'>
+                          <b>#{r.price}$</b>
+                          </div>
+                          <img src='../img/home_marker.png' width='30' height='30'>
+                          </div>"
         )
       end
     end

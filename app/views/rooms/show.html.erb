@@ -1,5 +1,5 @@
 <% if @room.image_rooms.present?%>
-  <div style="position:relative;" data-toggle="modal" data-target="#carousel_modal">
+  <div style="position:relative; text-align: center;" data-toggle="modal" data-target="#carousel_modal">
     <%= image_tag @room.image_rooms.first.url(:original)%>
     <div style="position:absolute;left:0;bottom:0;">
       <button type="button" class="btn btn-xl">Click to Preview</button>

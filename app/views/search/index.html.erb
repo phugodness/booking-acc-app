@@ -1,17 +1,22 @@
-<%= render 'search'%>
-<% if @searched_rooms.present?%>
-  <section id="portfolio" class="bg-light-gray">
-      <div class="row">
-        <% @searched_rooms.each do |room|%>
+<div class="container" style="margin: 20px;">
+  <div class="row">
+    <%= render 'search'%>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <% if @searched_rooms.present?%>
+      <div id="portfolio">
+        <div class="row">
+          <% @searched_rooms.each do |room|%>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                    <i class="fa fa-plus fa-3x"></i>
+                  <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
               <% if room.image_rooms.present?%>
-                <%= image_tag room.image_rooms.first.image.url, class:"img-responsive"%>
+              <%= image_tag room.image_rooms.first.image.url, class:"img-responsive"%>
               <% end %>
             </a>
             <div class="portfolio-caption">
@@ -19,27 +24,33 @@
               <p class="text-muted"><%= room.address%></p>
             </div>
           </div>
-        <% end%>
+          <% end%>
+        </div>
       </div>
-  </section>
-  <% @searched_rooms.each_with_index do |room, i|%>
-    <%= render partial: 'room', locals:{room: room, hash: @hash[i]}%>
-  <% end %>
-  <div style='width: 800px;'>
-    <div id="multi_markers" style='width: 800px; height: 400px;'>
+      <% @searched_rooms.each_with_index do |room, i|%>
+      <%= render partial: 'room', locals:{room: room, hash: @hash[i]}%>
+      <% end %>
+      <% else %>
+      <div id="portfolio">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading">Not Found</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
     </div>
-  </div>
-<% else %>
-  <section id="portfolio" class="bg-light-gray">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading">Not Found</h2>
+    <div class="col-md-4">
+      <div style='width: 800px;'>
+        <div id="multi_markers" style='width: 650px; height: 800px;'>
         </div>
       </div>
     </div>
-  </section>
-<% end %>
+  </div>
+</div>
+
 <script type="text/javascript">
   var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
   handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
