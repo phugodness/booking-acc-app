@@ -1,11 +1,11 @@
 <%= search_form_for @q, url: search_index_path do |f|%>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-7">
       <div class="form-group">
         <%= f.text_field :address_cont, class: 'form-control', placeholder: 'Address' %>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="form-group">
         <%= f.select :type_of_room_id_eq, TypeOfRoom.all.collect {|p| [ p.name, p.id]}, {include_blank: true}, class: 'form-control' %>
       </div>
