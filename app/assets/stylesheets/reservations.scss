@@ -2,10 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .reservation_form {
-  border-left: 6px solid #ccc;
+  border: 0.5px solid;
+  border-width: 0.5 0.5px 0.5px 0.5px;
   color: #000;
   border-color: #2196F3;
-  padding: 0.01em 16px;
+  padding: 0 16px 16px;
 }
 .reservation_form_price {
   font-weight: bold;
