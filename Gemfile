@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Use for Authorization
+gem 'cancancan'
 # A suite use for omniauth from third party
 gem 'therubyracer'
 gem 'omniauth'

@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_room, only: [:show, :edit, :update, :destroy, :images]
   before_action :init_data
   # GET /rooms
