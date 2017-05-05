@@ -4,6 +4,10 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
+# gem for admin management
+gem 'activeadmin'
+# gem for skin of activeadmin
+gem 'active_skin'
 
 # Use for Authorization
 gem 'cancancan'
