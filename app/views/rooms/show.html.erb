@@ -26,6 +26,9 @@
           <h2>
             <%= @room.name %>
           </h2>
+          <div class="">
+            <%= @room.updated_at %>
+          </div>
           <i>
             <%= @room.address %>
           </i>
@@ -128,16 +131,17 @@
       </div>
       <hr>
       <div class="row" id='reviews'>
-        <b>Reviews</b>
-        <div class='star-rating' data-score=<%= @avg_rating %>></div>
-        <em><%= pluralize(@reviews.size, 'review')%></em>
+        <div style="text-align:center">
+          <b><%= pluralize(@reviews.size, 'review')%></b>
+          <div class='star-rating' data-score=<%= @avg_rating %>></div>
+        </div>
         <hr>
         <% @room.reviews.includes(:user).each do |r|%>
           <div class="">
             <div class="row">
               <div class="col-md-10">
                 <%= image_tag(r.user.image.url(:original), size: 40, class: 'img-circle')%>
-                <b><%= r.user.name%></b>
+                <b><%= r.user.name%></b><br>
                 <%= r.created_at%>
                 <br>
                 <div class="reviews">

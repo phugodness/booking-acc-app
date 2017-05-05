@@ -1,15 +1,18 @@
-<%= form_for([@room, @room.reviews.build]) do |f| %>
-  <p>
-    <%= f.label :rank %>
-    <div class="col-sm-6" id='star-rating'></div>
-  </p>
-  <p>
+<div class="row">
+  <%= form_for([@room, @room.reviews.build]) do |f| %>
+    <div class="" style="text-align: center;">
+      <b>Your reviews</b>
+      <div id='star-rating'></div>
+    </div>
     <br>
-    <%= f.label :comment %><br>
-    <%= f.cktext_area :comment %>
-  </p>
-  <p>
-    <%= f.hidden_field :user_id, value: current_user.id%>
-    <%= f.submit %>
-  </p>
-<% end %>
+    <br>
+    <div class="">
+      <%= f.cktext_area :comment %>
+    </div>
+    <p>
+      <%= f.hidden_field :user_id, value: current_user.id%>
+      <%= f.submit %>
+    </p>
+  <% end %>
+
+</div>

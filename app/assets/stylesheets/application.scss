@@ -22,6 +22,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+a {
+  text-decoration: none !important;
+}
+h3 {
+  color: #fff !important;
+}
+
 #conversation-body {
  max-height: 400px;
  overflow-y: auto;
@@ -64,6 +71,7 @@ input[type="text"] {
 }
 .btn.btn-xl {
   border-radius: 0px !important;
+  background-color: #e73c3c !important;
 }
 .nav.nav-pills.nav-justified {
   margin: 0px !important;
@@ -83,6 +91,7 @@ input[type="text"] {
 }
 .form-control {
   border-radius: 0px !important;
+  width: 100% !important;
 }
 
 #carousel_modal .modal-content {
