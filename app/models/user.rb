@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :authored_conversations, class_name: 'Conversation', foreign_key: 'author_id'
   has_many :received_conversations, class_name: 'Conversation', foreign_key: 'receiver_id'
   has_many :personal_messages, dependent: :destroy
+  belongs_to :role
   # validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501171304) do
+ActiveRecord::Schema.define(version: 20170505014643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,11 @@ ActiveRecord::Schema.define(version: 20170501171304) do
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.integer  "type_of_room_id"
     t.integer  "user_id"
@@ -148,9 +153,11 @@ ActiveRecord::Schema.define(version: 20170501171304) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "role_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
   add_foreign_key "amentities", "rooms"
@@ -162,4 +169,5 @@ ActiveRecord::Schema.define(version: 20170501171304) do
   add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "type_of_rooms"
   add_foreign_key "rooms", "users"
+  add_foreign_key "users", "roles"
 end
