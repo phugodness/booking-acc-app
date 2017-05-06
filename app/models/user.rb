@@ -8,6 +8,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save { self.email = email.downcase }
 
+  has_one :phone_number
   has_many :rooms
   has_many :reviews
   has_many :reservations

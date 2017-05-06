@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505140635) do
+ActiveRecord::Schema.define(version: 20170506063506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 20170505140635) do
     t.datetime "updated_at",      null: false
     t.index ["conversation_id"], name: "index_personal_messages_on_conversation_id", using: :btree
     t.index ["user_id"], name: "index_personal_messages_on_user_id", using: :btree
+  end
+
+  create_table "phone_numbers", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "pin"
+    t.boolean  "verified"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["user_id"], name: "index_phone_numbers_on_user_id", using: :btree
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -178,6 +188,7 @@ ActiveRecord::Schema.define(version: 20170505140635) do
   add_foreign_key "image_rooms", "rooms"
   add_foreign_key "personal_messages", "conversations"
   add_foreign_key "personal_messages", "users"
+  add_foreign_key "phone_numbers", "users"
   add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "rooms"
   add_foreign_key "reviews", "users"

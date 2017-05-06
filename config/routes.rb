@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   mount ActionCable.server => '/cable'
 
-  post '/hook' => 'reservations#hook'
   get 'reservations/new'
   get 'home/index'
   get 'about/index'
@@ -16,6 +15,8 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
   get 'search/index'
+  post '/hook' => 'reservations#hook'
+  post 'phone_numbers/verify' => "phone_numbers#verify"
 
   as :user do
     get 'users/profile', to: 'devise/registrations#edit', as: :user_root
@@ -26,14 +27,15 @@ Rails.application.routes.draw do
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
 
+  resources :phone_numbers, only: [:new, :create]
+  resources :image_rooms
+  resources :reservations
+  resources :personal_messages, only: [:new, :create]
+  resources :conversations, only: [:index, :show]
   resources :rooms do
     resources :reviews
     collection do
       get 'images/:id' => 'rooms#images'
     end
   end
-  resources :image_rooms
-  resources :reservations
-  resources :personal_messages, only: [:new, :create]
-  resources :conversations, only: [:index, :show]
 end
