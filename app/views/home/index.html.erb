@@ -11,74 +11,42 @@
   </div>
 </header>
 
-<!-- Services Section -->
-<section id="services">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">Services</h2>
-        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-      </div>
-    </div>
-    <div class="row text-center">
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-          <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-        </span>
-        <h4 class="service-heading">E-Commerce</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-          <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-        </span>
-        <h4 class="service-heading">Responsive Design</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-          <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-        </span>
-        <h4 class="service-heading">Web Security</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Portfolio Grid Section -->
-<section id="portfolio" class="bg-light-gray">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">New Rooms</h2>
-        <h3 class="section-subheading text-muted">Newest rooms from all around the world!</h3>
+<% if @rooms.present?%>
+  <section id="portfolio" class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">New Rooms</h2>
+          <h3 class="section-subheading text-muted">Newest rooms from all around the world!</h3>
+        </div>
+      </div>
+      <div class="row">
+        <% @rooms.each_with_index do |room, i|%>
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                    <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <% if room.image_rooms.present?%>
+                <%= image_tag room.image_rooms.first.image.url, class:"img-responsive"%>
+              <% end %>
+            </a>
+            <div class="portfolio-caption">
+              <h4><%= room.name%></h4>
+              <p class="text-muted"><%= room.address%></p>
+            </div>
+          </div>
+        <% end%>
       </div>
     </div>
-    <div class="row">
-      <% @rooms.each do |room|%>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-          <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
-            <div class="portfolio-hover">
-              <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img src="img/portfolio/treehouse.png" class="img-responsive" alt="">
-          </a>
-          <div class="portfolio-caption">
-            <h4><%= room.name%></h4>
-            <p class="text-muted"><%= room.address%></p>
-          </div>
-        </div>
-      <% end%>
-    </div>
-  </div>
-</section>
-
+  </section>
+<% end %>
+<% @rooms.each_with_index do |room, i|%>
+  <%= render partial: 'room', locals:{room: room, hash: @hash[i]}%>
+<% end %>
 <!-- About Section -->
 <section id="about">
     <div class="container">
@@ -297,35 +265,3 @@
         </div>
     </div>
 </section>
-
-<!-- Portfolio Modal 5 -->
-<!-- <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            Project Details Go Here
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/escape-preview.png" alt="">
-                            <p>Escape is a free PSD web template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. Escape is a one page web template that was designed with agencies in mind. This template is ideal for those looking for a simple one page solution to describe your business and offer your services.</p>
-                            <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/escape-one-page-psd-web-template/">FreebiesXpress.com</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<%= render partial: 'room', locals:{room: @rooms[0], hash: @hash[0]}%>
-<%= render partial: 'room', locals:{room: @rooms[1], hash: @hash[1]}%>
-<%= render partial: 'room', locals:{room: @rooms[2], hash: @hash[2]}%>

@@ -11,15 +11,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <%= link_to 'Become a host', new_phone_number_path, class: "page-scroll" %>
-        </li>
-        <li>
-          <a class="page-scroll" href="#portfolio">Portfolio</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#about">About Us</a>
-        </li>
+        <% if current_user.role_id == 3 %>
+          <li>
+            <%= link_to 'Become a host', new_phone_number_path, class: "page-scroll" %>
+          </li>
+        <% elsif current_user.role_id == 2 %>
+          <li>
+            <%= link_to 'Add new Room', new_room_path%>
+          </li>
+        <% end %>
         <li>
           <% if user_signed_in? %>
             <div id="current-user"></div>
