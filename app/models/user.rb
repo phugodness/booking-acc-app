@@ -24,10 +24,6 @@ class User < ApplicationRecord
   do_not_validate_attachment_file_type :image
   has_attached_file :image, default_url: '/img/:style/missing.png'
 
-  # def initialize(user)
-  #   user ||= User.new # Guest user
-  # end
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
