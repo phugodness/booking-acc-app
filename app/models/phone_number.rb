@@ -15,6 +15,9 @@ class PhoneNumber < ApplicationRecord
   end
 
   def verify(entered_pin)
-    update(verified: true) if pin == entered_pin
+    if pin == entered_pin
+      update(verified: true)
+      user.update(role_id: 2)
+    end
   end
 end
