@@ -20,10 +20,14 @@
   </head>
   <body id="page-top" class="index">
     <!-- Navigation -->
-    <%= render 'layouts/nav'%>
-
-    <%= render partial: 'layouts/message', locales: {flash: flash}%>
-
+    <% if controller_name != 'registrations' && controller_name != 'sessions'%>
+      <%= render 'layouts/nav'%>
+      <div class="" style="margin-top: 100px;">
+        <%= render partial: 'layouts/message', locales: {flash: flash}%>
+      </div>
+    <% else %>
+      <%= render partial: 'layouts/message', locales: {flash: flash}%>
+    <% end %>
     <%= yield %>
     <!-- footer -->
     <%= render 'layouts/footer'%>

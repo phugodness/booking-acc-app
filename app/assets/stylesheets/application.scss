@@ -34,17 +34,15 @@ h3 {
 
 .alert-danger {
   border-radius: 0px !important;
-  margin-top: 100px !important;
   border: 0 !important;
   border-color: red !important;
   border-left: 6px solid red !important;
 }
 .alert-success {
   border-radius: 0px !important;
-  margin-top: 100px !important;
   border: 0 !important;
-  border-color: yellow !important;
-  border-left: 6px solid yellow !important;
+  border-color: green !important;
+  border-left: 6px solid green !important;
 }
 #conversation-body {
  max-height: 400px;

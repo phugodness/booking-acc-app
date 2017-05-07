@@ -163,9 +163,11 @@
           <hr>
         <% end %>
       </div>
-      <div class="row">
-        <%= render 'reviews/form' %>
-      </div>
+      <% if current_user.reservations.where(room_id: @room.id).count > 0 %>
+        <div class="row">
+          <%= render 'reviews/form' %>
+        </div>
+      <% end %>
     </div>
     <div class="col-md-4 reservations">
       <%= render 'reservations/form', reservation: @reservation, room: @room%>
