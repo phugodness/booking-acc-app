@@ -23,6 +23,9 @@
       </div>
       <div class="row">
         <div class="col-md-8">
+          <% if can? :update, @room %>
+            <%= link_to 'Edit This Room', edit_room_path(@room), class: "btn btn-xl"%>
+          <% end %>
           <h2>
             <%= @room.name %>
           </h2>
@@ -170,8 +173,6 @@
   </div>
 </div>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
 
 <script type="text/javascript">
   var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
