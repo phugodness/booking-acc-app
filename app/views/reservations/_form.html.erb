@@ -10,15 +10,25 @@
     <%= f.text_field :checkin_date, class: 'daterange', style: 'width: 100%; padding: 6px 15px;'%>
 
     <%= f.label :number_of_guest%>
-    <%= f.number_field :number_of_guest, class: 'form-control' %>
+    <%= f.number_field :number_of_guest, class: 'form-control', onchange: "a = +$('#reservation_number_of_guest').val() * #{room.price}; $('#total').text(a)" %>
 
     <%= f.label :service_fee%>
-    <%= f.number_field :service_fee, class: 'form-control' %>
+    <%= f.number_field :service_fee, class: 'form-control', onchange: "b = +$('#reservation_number_of_guest').val() * #{room.price} + +$('#reservation_service_fee').val() ; $('#total').text(b)" %>
+    <hr>
+    <div class="row" style="margin: 0 4px;">
+      <div class="pull-left">
+        <b>Total</b>
+      </div>
+      <div class="pull-right" id="total">
+        0
+      </div>
+    </div>
     <%= f.hidden_field :user_id, value: current_user.id%>
     <%= f.hidden_field :room_id, value: room.id%>
     <%= f.hidden_field :status_id, value: 1%>
+    <%= f.hidden_field :total, value: 0%>
     <br>
-    <%= f.submit 'Book Now', class: 'btn btn-xl', style: 'width: 100%;'%>
+    <%= f.submit 'Book Now', class: 'btn btn-xl book', style: 'width: 100%;'%>
   <% end %>
 
 </div>
