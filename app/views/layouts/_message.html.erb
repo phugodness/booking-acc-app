@@ -1,0 +1,7 @@
+<% flash.each do |message_type, message| %>
+  <%= content_tag(:div, class: "alert alert-#{message_type}") do %>
+    <% message.each do |k,v|%>
+      <%= content_tag(:li, k + ":" + v.flatten.first)%>
+    <% end%>
+  <% end%>
+<% end %>
