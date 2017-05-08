@@ -168,6 +168,11 @@
           <%= render 'reviews/form' %>
         </div>
       <% end %>
+      <div class="row">
+        <% if can? :destroy, @room %>
+          <%= link_to 'Destroy This Room', room_path(@room), class: "btn btn-xl", method: :delete, 'data-confirm': 'Are you Sure?'%>
+        <% end %>
+      </div>
     </div>
     <div class="col-md-4 reservations">
       <%= render 'reservations/form', reservation: @reservation, room: @room%>

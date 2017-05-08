@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :number_of_room %>
+    <%= f.number_field :number_of_room, value: f.object.number_of_room %>
+  </div>
+
+  <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>

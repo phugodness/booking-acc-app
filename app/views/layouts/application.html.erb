@@ -20,7 +20,7 @@
   </head>
   <body id="page-top" class="index">
     <!-- Navigation -->
-    <% if controller_name != 'registrations' && controller_name != 'sessions'%>
+    <% unless (controller_name == 'registrations' && action_name == 'new') || (controller_name == 'sessions')%>
       <%= render 'layouts/nav'%>
       <div class="" style="margin-top: 100px;">
         <%= render partial: 'layouts/message', locales: {flash: flash}%>

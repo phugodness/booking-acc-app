@@ -56,11 +56,6 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        if params[:images]
-          params[:images].each do |image|
-            @room.image_rooms.create(image: image)
-          end
-        end
         CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
         format.html { redirect_to new_image_room_path(room_id: @room.id) }
         format.json { render :show, status: :created, location: @room }
@@ -90,7 +85,7 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Room was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -113,6 +108,6 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(:type_of_room_id, :user_id, :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, :longitude, :latitude)
+    params.require(:room).permit(Room::DEFAULT_PARAMS)
   end
 end
