@@ -10,94 +10,132 @@
       </ul>
     </div>
     <% end %>
-
-    <div class="field">
-      <%= f.label :type_of_room_id %>
-      <%= f.select :type_of_room_id, @type_of_room.collect{ |u| [u.name, u.id]} %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :type_of_room_id %>
+        <%= f.select :type_of_room_id, @type_of_room.collect{ |u| [u.name, u.id]} %>
+      </div>
+      <div class="col-md-6">
+        <%= f.label :number_of_room %>
+        <%= f.number_field :number_of_room, value: f.object.number_of_room %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :number_of_room %>
-      <%= f.number_field :number_of_room, value: f.object.number_of_room %>
-    </div>
-
-    <div class="field">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </div>
-
-    <div class="field">
-      <%= f.label :address %>
-      <%= f.text_field :address %>
+    <div class="row">
+      <div class="col-md-6">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+      </div>
+      <div class="col-md-6">
+        <%= f.label :address %>
+        <%= f.text_field :address %>
+      </div>
     </div>
 
     <%= f.fields_for :amentity do |builder| %>
-    <div class="">
-      Internet
-      <%= builder.check_box :internet %>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :internet %>
+          Internet
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :air_conditioning %>
+          air_conditioning
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :cable_tv %>
+          cable_tv
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :breakfast %>
+          breakfast
+        </div>
+
+      </div>
     </div>
-    <div class="">
-      air_conditioning
-      <%= builder.check_box :air_conditioning %>
-    </div>
-    <div class="">
-      cable_tv
-      <%= builder.check_box :cable_tv %>
-    </div>
-    <div class="">
-      breakfast
-      <%= builder.check_box :breakfast %>
-    </div>
-    <div class="">
-      parking
-      <%= builder.check_box :parking %>
-    </div>
-    <div class="">
-      elevator
-      <%= builder.check_box :elevator %>
-    </div>
-    <div class="">
-      heating
-      <%= builder.check_box :heating %>
-    </div>
-    <div class="">
-      hot_tub
-      <%= builder.check_box :hot_tub %>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :parking %>
+          parking
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :elevator %>
+          elevator
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :heating %>
+          heating
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="">
+          <%= builder.check_box :hot_tub %>
+          hot_tub
+        </div>
+
+      </div>
     </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :number_of_guest %>
-      <%= f.text_field :number_of_guest %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :number_of_guest %>
+        <%= f.text_field :number_of_guest %>
+      </div>
+      <div class="col-md-6">
+        <%= f.label :price %>
+        <%= f.text_field :price %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :number_of_bed %>
+        <%= f.text_field :number_of_bed %>
+      </div>
+      <div class="col-md-6">
+        <%= f.label :accomodates %>
+        <%= f.text_field :accomodates %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :price %>
-      <%= f.text_field :price %>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :accomodates %>
-      <%= f.text_field :accomodates %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label :house_rules %>
+        <%= f.text_area :house_rules %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :number_of_bed %>
-      <%= f.text_field :number_of_bed %>
-    </div>
-
-    <div class="field">
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-    </div>
-
-    <div class="field">
-      <%= f.label :house_rules %>
-      <%= f.text_area :house_rules %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.submit %>
+      </div>
     </div>
     <% end %>
     <%= form_for(@image_room, html: { multipart: true, class: "dropzone", id: 'edit_image_room'}) do |f|  %>
