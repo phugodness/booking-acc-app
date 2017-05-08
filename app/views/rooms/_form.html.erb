@@ -31,6 +31,41 @@
     <%= f.text_field :address %>
   </div>
 
+  <%= f.fields_for :amentity do |builder| %>
+    <div class="">
+      Internet
+      <%= builder.check_box :internet %>
+    </div>
+    <div class="">
+      air_conditioning
+      <%= builder.check_box :air_conditioning %>
+    </div>
+    <div class="">
+      cable_tv
+      <%= builder.check_box :cable_tv %>
+    </div>
+    <div class="">
+      breakfast
+      <%= builder.check_box :breakfast %>
+    </div>
+    <div class="">
+      parking
+      <%= builder.check_box :parking %>
+    </div>
+    <div class="">
+      elevator
+      <%= builder.check_box :elevator %>
+    </div>
+    <div class="">
+      heating
+      <%= builder.check_box :heating %>
+    </div>
+    <div class="">
+      hot_tub
+      <%= builder.check_box :hot_tub %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :number_of_guest %>
     <%= f.text_field :number_of_guest %>

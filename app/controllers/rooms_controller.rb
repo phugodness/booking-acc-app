@@ -41,6 +41,7 @@ class RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
+    @room.build_amentity
   end
 
   # GET /rooms/1/edit
@@ -108,6 +109,6 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(Room::DEFAULT_PARAMS)
+    params.require(:room).permit(Room::DEFAULT_PARAMS << {amentity_attributes: Amentity:: DEFAULT_PARAMS})
   end
 end
