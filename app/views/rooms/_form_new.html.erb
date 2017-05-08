@@ -1,14 +1,14 @@
-<%= form_for room, :html => { :multipart => true } do |f| %>
+  <%= form_for room, :html => { :multipart => true } do |f| %>
   <% if room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
+  <div id="error_explanation">
+    <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
 
-      <ul>
+    <ul>
       <% room.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
+    </ul>
+  </div>
   <% end %>
 
   <div class="field">
@@ -32,38 +32,38 @@
   </div>
 
   <%= f.fields_for :amentity do |builder| %>
-    <div class="">
-      Internet
-      <%= builder.check_box :internet %>
-    </div>
-    <div class="">
-      air_conditioning
-      <%= builder.check_box :air_conditioning %>
-    </div>
-    <div class="">
-      cable_tv
-      <%= builder.check_box :cable_tv %>
-    </div>
-    <div class="">
-      breakfast
-      <%= builder.check_box :breakfast %>
-    </div>
-    <div class="">
-      parking
-      <%= builder.check_box :parking %>
-    </div>
-    <div class="">
-      elevator
-      <%= builder.check_box :elevator %>
-    </div>
-    <div class="">
-      heating
-      <%= builder.check_box :heating %>
-    </div>
-    <div class="">
-      hot_tub
-      <%= builder.check_box :hot_tub %>
-    </div>
+  <div class="">
+    Internet
+    <%= builder.check_box :internet %>
+  </div>
+  <div class="">
+    air_conditioning
+    <%= builder.check_box :air_conditioning %>
+  </div>
+  <div class="">
+    cable_tv
+    <%= builder.check_box :cable_tv %>
+  </div>
+  <div class="">
+    breakfast
+    <%= builder.check_box :breakfast %>
+  </div>
+  <div class="">
+    parking
+    <%= builder.check_box :parking %>
+  </div>
+  <div class="">
+    elevator
+    <%= builder.check_box :elevator %>
+  </div>
+  <div class="">
+    heating
+    <%= builder.check_box :heating %>
+  </div>
+  <div class="">
+    hot_tub
+    <%= builder.check_box :hot_tub %>
+  </div>
   <% end %>
 
   <div class="field">
@@ -100,4 +100,4 @@
     <%= f.submit %>
   </div>
 
-<% end %>
+  <% end %>

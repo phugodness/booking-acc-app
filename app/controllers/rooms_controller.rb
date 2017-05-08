@@ -100,7 +100,7 @@ class RoomsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_room
-    @room = Room.find(params[:id])
+    @room = Room.includes(:amentity).find(params[:id])
   end
 
   def init_data
