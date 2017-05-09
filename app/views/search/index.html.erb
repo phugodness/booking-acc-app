@@ -6,6 +6,7 @@
     <div class="col-md-8">
       <% if @searched_rooms.present?%>
       <div id="portfolio">
+
         <div class="row">
           <% @searched_rooms.each do |room|%>
           <div class="col-md-4 col-sm-6 portfolio-item">
@@ -61,4 +62,9 @@
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });
+  $(function(){
+    $("#show-limit").on("change", function(){
+      $(this).closest("form").trigger("submit");
+    });
+  })
 </script>

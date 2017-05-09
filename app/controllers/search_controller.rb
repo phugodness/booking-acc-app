@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def index
     q_param = params[:q]
     page = params[:q][:page]
-    per_page = params[:per_page]
+    per_page = params[:limit] if params[:limit]
     @q = Room.ransack(q_param)
     @searched_rooms = @q.result.includes(:type_of_room, :user, :amentity, :image_rooms, :reviews).page(page).per(per_page)
     @reservation = Reservation.new
