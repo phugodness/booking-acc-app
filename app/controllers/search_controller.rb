@@ -1,7 +1,10 @@
 class SearchController < ApplicationController
   def index
-    @q = Room.ransack(params[:q])
-    @searched_rooms = @q.result.includes(:type_of_room, :user, :amentity, :image_rooms, :reviews)
+    q_param = params[:q]
+    page = params[:q][:page]
+    per_page = params[:per_page]
+    @q = Room.ransack(q_param)
+    @searched_rooms = @q.result.includes(:type_of_room, :user, :amentity, :image_rooms, :reviews).page(page).per(per_page)
     @reservation = Reservation.new
     @hash = []
     @searched_rooms.each_with_index do |room, i|

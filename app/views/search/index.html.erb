@@ -30,6 +30,7 @@
       <% @searched_rooms.each_with_index do |room, i|%>
       <%= render partial: 'room', locals:{room: room, hash: @hash[i]}%>
       <% end %>
+      <%= paginate @searched_rooms %>
       <% else %>
       <div id="portfolio">
         <div class="container">
