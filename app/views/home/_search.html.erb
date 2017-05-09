@@ -16,25 +16,80 @@
       </div>
     </div>
   </div>
-  <div class="row advanced_search_field" style="display: none;">
-    <div class="col-md-2">
-      <div class="form-group">
-        <%= f.number_field :price_gt, class: 'form-control', placeholder: 'Price from', disabled: true%>
+  <div class="advanced_search_field" style="display: none;">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.number_field :price_gt, class: 'form-control', placeholder: 'Price from', disabled: true%>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.number_field :price_lt, class: 'form-control', placeholder: 'To', disabled: true %>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.number_field :number_of_guest_eq, class: 'form-control', placeholder: 'Guest', disabled: true %>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.number_field :number_of_bed_eq, class: 'form-control', placeholder: 'Bed', disabled: true %>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_internet_true, disabled: true, include_hidden: false %>
+          internet
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_air_conditioning_true, disabled: true, include_hidden: false %>
+          air_conditioning
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_cable_tv_true, disabled: true, include_hidden: false %>
+          cable_tv
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_breakfast_true, disabled: true, include_hidden: false %>
+          breakfast
+        </div>
       </div>
     </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <%= f.number_field :price_lt, class: 'form-control', placeholder: 'To', disabled: true %>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_parking_true, disabled: true, include_hidden: false %>
+          parking
+        </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <%= f.number_field :number_of_guest_eq, class: 'form-control', placeholder: 'Guest', disabled: true %>
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_elevator_true, disabled: true, include_hidden: false %>
+          elevator
+        </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <%= f.number_field :number_of_bed_eq, class: 'form-control', placeholder: 'Bed', disabled: true %>
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_heating_true, disabled: true, include_hidden: false %>
+          heating
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="">
+          <%= f.check_box :amentity_hot_tub_true, disabled: true, include_hidden: false %>
+          hot_tub
+        </div>
       </div>
     </div>
   </div>
