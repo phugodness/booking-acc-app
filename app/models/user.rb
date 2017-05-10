@@ -8,12 +8,12 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save { self.email = email.downcase }
 
-  has_one :phone_number
-  has_many :rooms
-  has_many :reviews
-  has_many :reservations
-  has_many :authored_conversations, class_name: 'Conversation', foreign_key: 'author_id'
-  has_many :received_conversations, class_name: 'Conversation', foreign_key: 'receiver_id'
+  has_one :phone_number, dependent: :destroy
+  has_many :rooms, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :reservations, dependent: :destroy
+  has_many :authored_conversations, class_name: 'Conversation', foreign_key: 'author_id', dependent: :destroy
+  has_many :received_conversations, class_name: 'Conversation', foreign_key: 'receiver_id', dependent: :destroy
   has_many :personal_messages, dependent: :destroy
   belongs_to :role
   # validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
