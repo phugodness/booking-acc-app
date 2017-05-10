@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501171304) do
+ActiveRecord::Schema.define(version: 20170506135317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.string   "author_type"
+    t.integer  "author_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  end
 
   create_table "amentities", force: :cascade do |t|
     t.boolean  "internet"
@@ -61,6 +75,16 @@ ActiveRecord::Schema.define(version: 20170501171304) do
     t.index ["user_id"], name: "index_personal_messages_on_user_id", using: :btree
   end
 
+  create_table "phone_numbers", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "pin"
+    t.boolean  "verified",     default: false
+    t.integer  "user_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["user_id"], name: "index_phone_numbers_on_user_id", using: :btree
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.date     "checkin_date"
     t.date     "checkout_date"
@@ -86,6 +110,11 @@ ActiveRecord::Schema.define(version: 20170501171304) do
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_reviews_on_room_id", using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -123,23 +152,23 @@ ActiveRecord::Schema.define(version: 20170501171304) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",   null: false
-    t.string   "encrypted_password",     default: "",   null: false
+    t.string   "email",                  default: "",         null: false
+    t.string   "encrypted_password",     default: "",         null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,    null: false
+    t.integer  "sign_in_count",          default: 0,          null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "name"
+    t.string   "name",                   default: "Stranger"
     t.datetime "date_of_birth"
     t.boolean  "gender",                 default: true
     t.string   "provider"
@@ -148,18 +177,22 @@ ActiveRecord::Schema.define(version: 20170501171304) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "role_id",                default: 3
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
   add_foreign_key "amentities", "rooms"
   add_foreign_key "image_rooms", "rooms"
   add_foreign_key "personal_messages", "conversations"
   add_foreign_key "personal_messages", "users"
+  add_foreign_key "phone_numbers", "users"
   add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "rooms"
   add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "type_of_rooms"
   add_foreign_key "rooms", "users"
+  add_foreign_key "users", "roles"
 end

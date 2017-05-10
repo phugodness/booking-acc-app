@@ -1,0 +1,37 @@
+// Place all the styles related to the errors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+* {
+  box-sizing: border-box;
+}
+
+.background-image {
+  background-image: url('404_not_found.jpg');
+  background-size: cover;
+  display: block;
+  height: 800px;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+}
+
+.content-error {
+  color: #fff;
+  // background: rgba(255, 255, 255, 0.35);
+  // border-radius: 3px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  z-index: 2;
+  // padding: 0 10px;
+  width: 1100px;
+  height: 200px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  letter-spacing: 2px;
+  line-height: 300%;
+}

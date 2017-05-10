@@ -7,3 +7,48 @@
 <% end %>
 
 <br>
+<script type="text/javascript">
+
+  // grap our upload form by its id
+  $("#new_image_room").dropzone({
+    init: function() {
+      // this.on("sending", function(file, xhr, formData) {
+      //   formData.append("image_room[room_id]", $('.room_id').val()); // Append all the additional input data of your form here!
+      // });
+    },
+    renameFilename: function (filename) {
+      return new Date().getTime() + '_' + filename;
+    },
+    // restrict image size to a maximum 1MB
+    maxFilesize: 1,
+    // changed the passed param to one accepted by
+    // our rails app
+    paramName: "image_room[image]",
+    // show remove links on each image upload
+    addRemoveLinks: true,
+    // if the upload was successful
+    success: function(file, response){
+      // find the remove button link of the uploaded file and give it an id
+      // based of the fileID response from the server
+      $(file.previewTemplate).find('.dz-remove').attr('id', response.fileID);
+      // add the dz-success class (the green tick sign)
+      $(file.previewElement).addClass("dz-success");
+    },
+    //when the remove button is clicked
+    removedfile: function(file){
+      // grap the id of the uploaded file we set earlier
+      var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+
+      // make a DELETE ajax request to delete the file
+      $.ajax({
+        type: 'DELETE',
+        url: '/image_rooms/' + id,
+        success: function(data){
+          alert(data.message);
+          location.reload();
+        }
+      });
+    }
+  });
+
+</script>

@@ -1,3 +1,15 @@
+<% if @room.image_rooms.present?%>
+  <div style="position:relative; text-align: center;" data-toggle="modal" data-target="#carousel_modal">
+    <%= image_tag @room.image_rooms.first.url(:original)%>
+    <div style="position:absolute;left:0;bottom:0;">
+      <button type="button" class="btn btn-xl">Click to Preview</button>
+    </div>
+  </div>
+  <div class="">
+    <%= render 'carousel' %>
+  </div>
+<% end %>
+<hr>
 <div class="container">
   <div class="row">
     <div class="col-md-8">
@@ -11,15 +23,25 @@
       </div>
       <div class="row">
         <div class="col-md-8">
+          <% if can? :update, @room %>
+            <%= link_to 'Edit This Room', edit_room_path(@room), class: "btn btn-xl"%>
+          <% end %>
           <h2>
             <%= @room.name %>
           </h2>
+          <div class="">
+            <%= @room.updated_at %>
+          </div>
           <i>
             <%= @room.address %>
           </i>
         </div>
         <div class="col-md-4">
-          <%= image_tag(@room.user.image.url(:original), size: 40, class: 'img-circle')%>
+          <%if @room.user.provider == 'facebook'%>
+            <%=image_tag(@room.user.image_file_name, size: 40, class: 'img-circle') %>
+          <% else %>
+            <%=image_tag(@room.user.image.url(:original), size: 40, class: 'img-circle') %>
+          <% end %>
           <b>
             <br>
             <%= @room.user.name %>
@@ -116,16 +138,17 @@
       </div>
       <hr>
       <div class="row" id='reviews'>
-        <b>Reviews</b>
-        <div class='star-rating' data-score=<%= @avg_rating %>></div>
-        <em><%= pluralize(@reviews.size, 'review')%></em>
+        <div style="text-align:center">
+          <b><%= pluralize(@reviews.size, 'review')%></b>
+          <div class='star-rating' data-score=<%= @avg_rating %>></div>
+        </div>
         <hr>
         <% @room.reviews.includes(:user).each do |r|%>
           <div class="">
             <div class="row">
               <div class="col-md-10">
                 <%= image_tag(r.user.image.url(:original), size: 40, class: 'img-circle')%>
-                <b><%= r.user.name%></b>
+                <b><%= r.user.name%></b><br>
                 <%= r.created_at%>
                 <br>
                 <div class="reviews">
@@ -140,24 +163,23 @@
           <hr>
         <% end %>
       </div>
+      <% if current_user.reservations.where(room_id: @room.id).count > 0 %>
+        <div class="row">
+          <%= render 'reviews/form' %>
+        </div>
+      <% end %>
       <div class="row">
-        <%= render 'reviews/form' %>
+        <% if can? :destroy, @room %>
+          <%= link_to 'Destroy This Room', room_path(@room), class: "btn btn-xl", method: :delete, 'data-confirm': 'Are you Sure?'%>
+        <% end %>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 reservations">
       <%= render 'reservations/form', reservation: @reservation, room: @room%>
     </div>
   </div>
 </div>
 
-<p>
-  <strong>Image:</strong>
-  <% @room.image_rooms.each do |u| %>
-    <%= image_tag u.image.url%>
-  <% end%>
-</p>
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
 
 <script type="text/javascript">
   var handler = Gmaps.build("Google", {builders: { Marker: CustomMarkerBuilder }} )
@@ -177,5 +199,7 @@
   $('#star-rating').raty({
     path: '/assets',
     scoreName: 'review[rank]'
-});
+  });
+  $('#myCarousel').carousel();
+
 </script>

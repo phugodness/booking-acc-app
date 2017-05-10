@@ -150,7 +150,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <%= render 'reservations/form', reservation: @reservation, room: room%>
+            <%= link_to 'Book Now', room_path(room), class: "btn btn-xl"%>
           </div>
         </div>
         <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>

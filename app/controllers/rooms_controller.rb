@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_room, only: [:show, :edit, :update, :destroy, :images]
   before_action :init_data
   # GET /rooms
@@ -13,22 +14,26 @@ class RoomsController < ApplicationController
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
 
+    # reviews of room
     @reviews = @room.reviews.to_a
-    @avg_rating = if @reviews.blank?
-      0
-    else
-      @room.reviews.average(:rank).round(2)
-    end
+    @avg_rating = @reviews.blank? ? 0 : @room.reviews.average(:rank).round(2)
+    # booked dates
     gon.booked_date = []
     @room.reservations.collect do |x|
       x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
     end
-
+    # Google map
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
       marker.lng room.longitude
       marker.json(
-        custom_marker: "#{room.name}<br>#{room.price}$<br><img src='../img/home_marker.png' width='30' height='30'>"
+        custom_marker: "<div style='text-align:center'>
+        #{room.name}
+        <div style='font-size: 16px'>
+        <b>#{room.price}$</b>
+        </div>
+        <img src='../img/home_marker.png' width='30' height='30'>
+        </div>"
       )
     end
   end
@@ -36,6 +41,7 @@ class RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
+    @room.build_amentity
   end
 
   # GET /rooms/1/edit
@@ -51,11 +57,6 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        if params[:images]
-          params[:images].each do |image|
-            @room.image_rooms.create(image: image)
-          end
-        end
         CreatingRoomMailer.creating_room_email(current_user, @room).deliver_later
         format.html { redirect_to new_image_room_path(room_id: @room.id) }
         format.json { render :show, status: :created, location: @room }
@@ -85,23 +86,21 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Room was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   def images
     @images = @room.image_rooms
-    # @image.each do |x|
-    #   x['url'] = x.url
-    # end
-    render json: @images.to_json(methods: :url)
+    render json: @images.to_json(methods: :url_medium)
   end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_room
-    @room = Room.find(params[:id])
+    @room = Room.includes(:amentity).find(params[:id])
   end
 
   def init_data
@@ -110,6 +109,6 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(:type_of_room_id, :user_id, :name, :address, :number_of_guest, :price, :accomodates, :number_of_bed, :description, :house_rules, :longitude, :latitude)
+    params.require(:room).permit(Room::DEFAULT_PARAMS << {amentity_attributes: Amentity:: DEFAULT_PARAMS})
   end
 end

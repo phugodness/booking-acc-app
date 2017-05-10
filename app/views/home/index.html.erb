@@ -11,73 +11,80 @@
   </div>
 </header>
 
-<!-- Services Section -->
-<section id="services">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">Services</h2>
-        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-      </div>
-    </div>
-    <div class="row text-center">
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-          <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-        </span>
-        <h4 class="service-heading">E-Commerce</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-          <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-        </span>
-        <h4 class="service-heading">Responsive Design</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fa fa-circle fa-stack-2x text-primary"></i>
-          <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-        </span>
-        <h4 class="service-heading">Web Security</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Portfolio Grid Section -->
-<section id="portfolio" class="bg-light-gray">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">New Rooms</h2>
-        <h3 class="section-subheading text-muted">Newest rooms from all around the world!</h3>
+<!-- New rooms -->
+<% if @rooms.present?%>
+  <section id="portfolio" class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">New Rooms</h2>
+          <h3 class="section-subheading text-muted">Newest rooms from all around the world!</h3>
+        </div>
+      </div>
+      <div class="row">
+        <% @rooms.each_with_index do |room, i|%>
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                    <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <% if room.image_rooms.present?%>
+                <%= image_tag room.image_rooms.first.image.url, class:"img-responsive"%>
+              <% end %>
+            </a>
+            <div class="portfolio-caption">
+              <h4><%= room.name%></h4>
+              <p class="text-muted"><%= room.address%></p>
+            </div>
+          </div>
+        <% end%>
       </div>
     </div>
-    <div class="row">
-      <% @rooms.each do |room|%>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-          <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
-            <div class="portfolio-hover">
-              <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img src="img/portfolio/treehouse.png" class="img-responsive" alt="">
-          </a>
-          <div class="portfolio-caption">
-            <h4><%= room.name%></h4>
-            <p class="text-muted"><%= room.address%></p>
-          </div>
+  </section>
+<% end %>
+<% @rooms.each_with_index do |room, i|%>
+  <%= render partial: 'room', locals:{room: room, hash: @hash[i]}%>
+<% end %>
+
+<!-- Most reservation Room -->
+<% if @most_rooms.present?%>
+  <section id="portfolio" class="bg-light-gray" style="padding-top: 0;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">Most Booked Rooms</h2>
+          <h3 class="section-subheading text-muted">These are the most booked room in this month</h3>
         </div>
-      <% end%>
+      </div>
+      <div class="row">
+        <% @most_rooms.each_with_index do |room, i|%>
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a href="#portfolioModal<%=room.id%>" class="portfolio-link" data-toggle="modal">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                    <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <% if room.image_rooms.present?%>
+                <%= image_tag room.image_rooms.first.image.url, class:"img-responsive"%>
+              <% end %>
+            </a>
+            <div class="portfolio-caption">
+              <h4><%= room.name%></h4>
+              <p class="text-muted"><%= room.address%></p>
+            </div>
+          </div>
+        <% end%>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
+<% @most_rooms.each_with_index do |room, i|%>
+  <%= render partial: 'room', locals:{room: room, hash: @most_hash[i]}%>
+<% end %>
 
 <!-- About Section -->
 <section id="about">
@@ -97,11 +104,11 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>2009-2011</h4>
-                                <h4 class="subheading">Our Humble Beginnings</h4>
+                                <h4>2-2017</h4>
+                                <h4 class="subheading">Our Story Begins</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                <p class="text-muted">I kick off the project with the passion of airbnb replacement</p>
                             </div>
                         </div>
                     </li>
@@ -111,39 +118,11 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>March 2011</h4>
+                                <h4>5-2017</h4>
                                 <h4 class="subheading">An Agency is Born</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="img/about/3.jpg" alt="">
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4>December 2012</h4>
-                                <h4 class="subheading">Transition to Full Service</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="img/about/4.jpg" alt="">
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4>July 2014</h4>
-                                <h4 class="subheading">Phase Two Expansion</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                <p class="text-muted">The very first version of the website has been test before deploying</p>
                             </div>
                         </div>
                     </li>
@@ -165,53 +144,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Our Amazing Team</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading">Me</h2>
+                <h3 class="section-subheading text-muted">A simple man</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">|
-      @hash[i] = Gmaps4rails.build_markers(room)
+            <div style="text-align: center;">
                 <div class="team-member">
-                    <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Kay Garland</h4>
-                    <p class="text-muted">Lead Designer</p>
+                    <%= image_tag 'me.jpg', class: "img-responsive img-circle"%>
+                    <h4>Truong Van Phu</h4>
+                    <p class="text-muted">Developer</p>
                     <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+                        <li><a href="https://twitter.com/phugodness" target="_blank"><i class="fa fa-twitter"></i></a>
                         </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+                        <li><a href="https://fb.com/phugodness" target="_blank"><i class="fa fa-facebook"></i></a>
                         </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Larry Parker</h4>
-                    <p class="text-muted">Lead Marketer</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Diana Pertersen</h4>
-                    <p class="text-muted">Lead Developer</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        <li><a href="https://www.linkedin.com/in/truong-van-phu-b9a80b118/" target="_blank"><i class="fa fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -219,39 +167,11 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 text-center">
-                <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                <p class="large text-muted">If you have any questions, feel free to ask me at any time ASAP</p>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Clients Aside -->
-<aside class="clients">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="img/logos/envato.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="img/logos/designmodo.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="img/logos/themeforest.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="img/logos/creative-market.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-</aside>
 
 <!-- Contact Section -->
 <section id="contact">
@@ -259,7 +179,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Contact Us</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted">Please help us improve your experience</h3>
             </div>
         </div>
         <div class="row">
@@ -297,35 +217,3 @@
         </div>
     </div>
 </section>
-
-<!-- Portfolio Modal 5 -->
-<!-- <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            Project Details Go Here
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/escape-preview.png" alt="">
-                            <p>Escape is a free PSD web template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. Escape is a one page web template that was designed with agencies in mind. This template is ideal for those looking for a simple one page solution to describe your business and offer your services.</p>
-                            <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/escape-one-page-psd-web-template/">FreebiesXpress.com</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<%= render partial: 'room', locals:{room: @rooms[0], hash: @hash[0]}%>
-<%= render partial: 'room', locals:{room: @rooms[1], hash: @hash[1]}%>
-<%= render partial: 'room', locals:{room: @rooms[2], hash: @hash[2]}%>

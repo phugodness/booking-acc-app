@@ -8,18 +8,18 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save { self.email = email.downcase }
 
-  has_many :rooms
-  has_many :reviews
-  has_many :reservations
-  has_many :authored_conversations, class_name: 'Conversation', foreign_key: 'author_id'
-  has_many :received_conversations, class_name: 'Conversation', foreign_key: 'receiver_id'
+  has_one :phone_number, dependent: :destroy
+  has_many :rooms, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :reservations, dependent: :destroy
+  has_many :authored_conversations, class_name: 'Conversation', foreign_key: 'author_id', dependent: :destroy
+  has_many :received_conversations, class_name: 'Conversation', foreign_key: 'receiver_id', dependent: :destroy
   has_many :personal_messages, dependent: :destroy
+  belongs_to :role
   # validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-  validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
 
   do_not_validate_attachment_file_type :image
   has_attached_file :image, default_url: '/img/:style/missing.png'
@@ -33,6 +33,18 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.image_file_name = auth.info.image
     end
+  end
+
+  def admin?
+    self.role.name == 'Admin'
+  end
+
+  def host?
+    self.role.name == 'Host'
+  end
+
+  def regular?
+    self.role.name == 'Regular'
   end
 
   def online?

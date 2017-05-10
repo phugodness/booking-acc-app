@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  phone_number: MyString
+  pin: MyString
+  verified: false
+  user: one
+
+two:
+  phone_number: MyString
+  pin: MyString
+  verified: false
+  user: two

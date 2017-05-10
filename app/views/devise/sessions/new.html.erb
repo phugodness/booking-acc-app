@@ -1,26 +1,61 @@
-<h2>Log in</h2>
-
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+  <!-- Top content -->
+  <div class="background-login"></div>
+  <div class="top-content">
+      <div class="inner-bg">
+          <div class="container">
+              <div class="row">
+                  <div class="col-sm-8 col-sm-offset-2 text" style="text-align: center">
+                      <h1><strong>Login</strong></h1>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                      <div class="form-top-left">
+                        <h3>Login to our site</h3>
+                          <p>Enter your username and password to log on:</p>
+                      </div>
+                      <div class="form-top-right">
+                        <i class="fa fa-lock"></i>
+                      </div>
+                      </div>
+                      <div class="form-bottom">
+                    <form role="form" action="" method="post" class="login-form">
+                      <div class="form-group">
+                        <label class="sr-only" for="form-username">Username</label>
+                          <%= f.email_field :email, autofocus: true %>
+                        </div>
+                        <div class="form-group">
+                          <label class="sr-only" for="form-password">Password</label>
+                          <%= f.password_field :password, autocomplete: "off" %>
+                        </div>
+                        <% if devise_mapping.rememberable? -%>
+                            <%= f.check_box :remember_me %>
+                            <%= f.label :remember_me %>
+                        <% end -%>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+                        <%= f.submit "Log in" %>
+                    </form>
+                  </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6 col-sm-offset-3 ">
+                    <h3>...or login with:</h3>
+                    <div class="">
+                      <%- if devise_mapping.omniauthable? %>
+                        <%- resource_class.omniauth_providers.each do |provider| %>
+                          <a href=<%= omniauth_authorize_path(resource_name, provider)%>>
+                            <i class="fa fa-<%= provider %>" style="font-size: 50px;"></i>
+                          </a>
+                        <% end -%>
+                      <% end -%>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

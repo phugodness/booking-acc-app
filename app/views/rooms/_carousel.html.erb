@@ -1,0 +1,67 @@
+<div class="portfolio-modal modal fade" id='carousel_modal' tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal">
+        <div class="lr" style="background-color: #fff;">
+          <div class="rl" style="background-color: #fff;">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+
+
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+          </ol>
+
+
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+
+            <!-- Slide 1 : Active -->
+            <div class="item active">
+              <%= image_tag @room.image_rooms.first.image.url%>
+              <div class="carousel-caption">
+                <h3><%= @room.name%></h3>
+                <p><%= @room.address%></p>
+              </div><!-- /.carousel-caption -->
+            </div><!-- /Slide1 -->
+
+            <% @room.image_rooms.drop(1).each do |x| %>
+              <!-- Slide 2 -->
+              <div class="item">
+                <%= image_tag x.image.url%>
+                <div class="carousel-caption">
+                  <h3><%= @room.name%></h3>
+                  <p><%= @room.address%></p>
+                </div><!-- /.carousel-caption -->
+              </div><!-- /Slide2 -->
+            <% end %>
+
+          </div><!-- /.carousel-inner -->
+
+
+          <!-- Controls -->
+          <div class="control-box">
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+              <span class="control-icon prev fa fa-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+              <span class="control-icon next fa fa-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div><!-- /.control-box -->
+
+
+        </div><!-- /#myCarousel -->
+      </div>
+    </div>
+  </div>
+</div>

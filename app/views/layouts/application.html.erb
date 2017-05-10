@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BookingAccApp</title>
+    <title>Bookany</title>
     <%= csrf_meta_tags %>
     <%= include_gon %>
 
@@ -20,14 +20,14 @@
   </head>
   <body id="page-top" class="index">
     <!-- Navigation -->
-
-    <% flash.each do |message_type, message| %>
-      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+    <% unless (controller_name == 'registrations' && action_name == 'new') || (controller_name == 'sessions')%>
+      <%= render 'layouts/nav'%>
+      <div class="" style="margin-top: 100px;">
+        <%= render partial: 'layouts/message', locales: {flash: flash}%>
+      </div>
+    <% else %>
+      <%= render partial: 'layouts/message', locales: {flash: flash}%>
     <% end %>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
     <%= yield %>
     <!-- footer -->
     <%= render 'layouts/footer'%>

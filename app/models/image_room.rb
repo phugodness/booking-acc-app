@@ -5,7 +5,11 @@ class ImageRoom < ApplicationRecord
                        presence: true,
                        content_type: { content_type: /\Aimage\/.*\Z/ },
                        size: { less_than: 1.megabyte }
-  def url
+  def url_medium
     image.url(:medium)
+  end
+
+  def url(size)
+    image.url(size.to_sym)
   end
 end

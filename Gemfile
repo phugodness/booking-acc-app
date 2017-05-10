@@ -4,7 +4,17 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
+# Use for paginate
+gem 'kaminari'
+# gem for SMS verification
+gem 'twilio-ruby', '~> 4.1.0'
+# gem for admin management
+gem 'activeadmin'
+# gem for skin of activeadmin
+gem 'active_skin'
 
+# Use for Authorization
+gem 'cancancan'
 # A suite use for omniauth from third party
 gem 'therubyracer'
 gem 'omniauth'
