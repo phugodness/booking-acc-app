@@ -14,10 +14,11 @@ class Reservation < ApplicationRecord
       upload: 1,
       return: "#{Rails.application.secrets.app_host}#{return_path}",
       invoice: id,
-      amount: room.price * number_of_guest + service_fee,
+      amount: total,
       rooms: room.name + "(#{checkin_date} -- #{checkout_date})",
       item_number: number_of_guest,
-      quantity: '1'
+      quantity: '1',
+      notify_url: "#{Rails.application.secrets.app_host}/hook"
     }
     "#{Rails.application.secrets.paypal_host}/cgi-bin/webscr?" + values.to_query
   end

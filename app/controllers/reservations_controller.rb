@@ -1,13 +1,15 @@
 # a
 class ReservationsController < ApplicationController
-  protect_from_forgery except: [:hook]
+  protect_from_forgery except: :hook
+  # skip_before_action :verify_authenticity_token, only: [:hook]
 
   def hook
     params.permit!
     status = params[:payment_status]
     if status == 'Completed'
       @reservation = Reservation.find params[:invoice]
-      @reservation.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+      # @reservation.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+      @reservation.update(status_id: 2)
     end
     render nothing: true
   end
@@ -20,7 +22,7 @@ class ReservationsController < ApplicationController
     params[:reservation][:checkin_date], params[:reservation][:checkout_date] = params[:reservation][:checkin_date].split('-')
 
     @reservation = Reservation.new(reservation_params)
-    Reservation.transaction do
+    ActiveRecord::Base.transaction do
       begin
         @reservation.save
         ReservationMailer.booking_room(current_user, @reservation).deliver_later

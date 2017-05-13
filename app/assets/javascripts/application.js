@@ -21,7 +21,7 @@
 //= require dropzone.min
 //= require gmaps/google
 //= require bootstrap.min
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require moment
 //= require daterangepicker
 //= require agency.min
