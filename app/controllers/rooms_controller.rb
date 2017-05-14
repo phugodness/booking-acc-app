@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
   def show
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
-
+    @card = @reservation.build_card
     # reviews of room
     @reviews = @room.reviews.to_a
     @avg_rating = @reviews.blank? ? 0 : @room.reviews.average(:rank).round(2)
@@ -109,6 +109,6 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(Room::DEFAULT_PARAMS << {amentity_attributes: Amentity:: DEFAULT_PARAMS})
+    params.require(:room).permit(Room::DEFAULT_PARAMS << { amentity_attributes: Amentity:: DEFAULT_PARAMS })
   end
 end

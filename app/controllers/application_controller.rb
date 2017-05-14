@@ -1,13 +1,13 @@
 # :P
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def authenticate_active_user!
     authenticate_user!
     unless current_user.admin?
-      flash[:alert] = "Unauthorized Access!"
+      flash[:alert] = 'Unauthorized Access!'
       redirect_to root_path
     end
   end
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = "Access denied!"
+    flash[:error] = 'Access denied!'
     redirect_to root_url
   end
 end
