@@ -22,6 +22,7 @@ class RoomsController < ApplicationController
     @room.reservations.collect do |x|
       x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
     end
+    gon.booked_date.sort!
     # Google map
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
