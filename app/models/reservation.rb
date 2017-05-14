@@ -12,7 +12,7 @@ class Reservation < ApplicationRecord
   end
 
   validates :checkin_date, :checkout_date, :number_of_guest, :service_fee, presence: true
-  validate :same_as_owner
+  validate :same_as_owner, on: :create
 
   def same_as_owner
     errors.add(:user_id, :same) if Room.find(room_id).user_id == user_id

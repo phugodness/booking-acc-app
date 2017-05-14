@@ -29,7 +29,7 @@ class ReservationsController < ApplicationController
       ReservationMailer.booking_room(current_user, @reservation).deliver_later
       case params['payment_method']
       when 'handon'
-        redirect_to room_path(id: params[:reservation][:room_id]), notice: 'Success'
+        redirect_to room_path(id: params[:reservation][:room_id]), notice: 'Successfully'
       when 'paypal'
         redirect_to @reservation.paypal_url(room_path(id: params[:reservation][:room_id]))
       when 'card'

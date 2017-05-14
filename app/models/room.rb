@@ -14,4 +14,14 @@ class Room < ApplicationRecord
 
   geocoded_by :address # can also be an IP address
   after_validation :geocode # auto-fetch coordinates
+
+  def full_booked_days(number_of_room)
+    booked_date = []
+    available_reservations = reservations.reject { |a| a.status_id == 3 }
+    available_reservations.collect do |x|
+      x.checkin_date.upto(x.checkout_date) { |d| booked_date << d.strftime('%d/%m/%Y') }
+    end
+    booked_hash = booked_date.sort!.inject(Hash.new(0)) { |a, e| a[e] += 1; a }.reject{ |k, v| v < number_of_room }
+    booked_hash.keys
+  end
 end

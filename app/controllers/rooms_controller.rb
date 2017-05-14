@@ -19,10 +19,7 @@ class RoomsController < ApplicationController
     @avg_rating = @reviews.blank? ? 0 : @room.reviews.average(:rank).round(2)
     # booked dates
     gon.booked_date = []
-    @room.reservations.collect do |x|
-      x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
-    end
-    gon.booked_date.sort!
+    gon.booked_date = @room.full_booked_days(@room.number_of_room)
     # Google map
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
