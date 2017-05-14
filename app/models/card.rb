@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to :reservation
-  has_one :card_transaction
+  has_one :card_transaction, dependent: :destroy
 
   # These attributes won't be stored
   attr_accessor :card_number, :card_verification

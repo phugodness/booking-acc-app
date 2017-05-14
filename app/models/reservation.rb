@@ -4,7 +4,7 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :room
   belongs_to :status
-  has_one :card
+  has_one :card, dependent: :destroy
   accepts_nested_attributes_for :card
 
   def payment_method

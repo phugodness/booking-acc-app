@@ -3,6 +3,23 @@ class ReservationsController < ApplicationController
   protect_from_forgery except: :hook
   # skip_before_action :verify_authenticity_token, only: [:hook]
 
+  def destroy
+    @reservation = Reservation.find(params[:id])
+    if @reservation.destroy
+      flash[:notice] = "Successfully destroyed..."
+    else
+      flash[:alert] = "Can not Delete..."
+    end
+    redirect_to :back
+  end
+
+  def index
+    page = params[:q][:page] if params[:q].present?
+    per_page = 10
+    per_page = params[:limit] if params[:limit]
+    @reservations = current_user.reservations.order(:checkin_date).page(page).per(per_page)
+  end
+
   def hook
     params.permit!
     status = params[:payment_status]
