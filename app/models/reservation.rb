@@ -12,6 +12,11 @@ class Reservation < ApplicationRecord
   end
 
   validates :checkin_date, :checkout_date, :number_of_guest, :service_fee, presence: true
+  validate :same_as_owner
+
+  def same_as_owner
+    errors.add(:user_id, :same) if Room.find(room_id).user_id == user_id
+  end
 
   def paypal_url(return_path)
     values = {

@@ -25,6 +25,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.card.ip_address = request.remote_ip
     if @reservation.save
+      ReservationMailer.booking_room(Room.find(params[:reservation][:room_id]).user, @reservation).deliver_later
       ReservationMailer.booking_room(current_user, @reservation).deliver_later
       case params['payment_method']
       when 'handon'
