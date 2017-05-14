@@ -30,10 +30,9 @@ class ReservationsController < ApplicationController
       when 'handon'
         redirect_to room_path(id: params[:reservation][:room_id]), notice: 'Success'
       when 'paypal'
-        redirect_to @reservation.paypal_url(reservation_path(@reservation))
+        redirect_to @reservation.paypal_url(room_path(id: params[:reservation][:room_id]))
       when 'card'
         if @reservation.card.purchase
-          binding.pry
           redirect_to room_path(id: params[:reservation][:room_id]), notice: @reservation.card.card_transaction.message
         else
           redirect_to room_path(id: params[:reservation][:room_id]), alert: @reservation.card.card_transaction.message
