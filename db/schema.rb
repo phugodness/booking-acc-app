@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170506135317) do
+ActiveRecord::Schema.define(version: 20170514043141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,40 @@ ActiveRecord::Schema.define(version: 20170506135317) do
     t.datetime "updated_at",       null: false
     t.integer  "room_id"
     t.index ["room_id"], name: "index_amentities_on_room_id", using: :btree
+  end
+
+  create_table "card_transactions", force: :cascade do |t|
+    t.integer  "card_id"
+    t.string   "action"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "authorization"
+    t.string   "message"
+    t.text     "params"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["card_id"], name: "index_card_transactions_on_card_id", using: :btree
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.integer  "reservation_id"
+    t.string   "ip_address"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "card_type"
+    t.date     "card_expires_on"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["reservation_id"], name: "index_cards_on_reservation_id", using: :btree
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone_number"
+    t.text     "message"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -185,6 +219,8 @@ ActiveRecord::Schema.define(version: 20170506135317) do
   end
 
   add_foreign_key "amentities", "rooms"
+  add_foreign_key "card_transactions", "cards"
+  add_foreign_key "cards", "reservations"
   add_foreign_key "image_rooms", "rooms"
   add_foreign_key "personal_messages", "conversations"
   add_foreign_key "personal_messages", "users"

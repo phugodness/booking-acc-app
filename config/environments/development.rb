@@ -74,5 +74,11 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable = true
     Bullet.console = true
+    ActiveMerchant::Billing::Base.mode = :test # :production when you will use a real Pro Account
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+      login: 'phugodness-facilitator_api1.gmail.com',
+      password: 'MHDHZ634QA6J6VY6',
+      signature: 'AFcWxV21C7fd0v3bYYYRCpSSRl31AcNE-nzbDi-zoDQRzl0xH3T4bS02'
+    )
   end
 end

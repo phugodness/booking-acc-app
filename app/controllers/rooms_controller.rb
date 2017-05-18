@@ -13,15 +13,13 @@ class RoomsController < ApplicationController
   def show
     @reservation = Reservation.new
     @room = Room.includes(:type_of_room, :user).find_by_id(params[:id])
-
+    @card = @reservation.build_card
     # reviews of room
     @reviews = @room.reviews.to_a
     @avg_rating = @reviews.blank? ? 0 : @room.reviews.average(:rank).round(2)
     # booked dates
     gon.booked_date = []
-    @room.reservations.collect do |x|
-      x.checkin_date.upto(x.checkout_date) { |d| gon.booked_date << d.strftime('%d/%m/%Y') }
-    end
+    gon.booked_date = @room.full_booked_days(@room.number_of_room)
     # Google map
     @hash = Gmaps4rails.build_markers(@room) do |room, marker|
       marker.lat room.latitude
@@ -109,6 +107,6 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(Room::DEFAULT_PARAMS << {amentity_attributes: Amentity:: DEFAULT_PARAMS})
+    params.require(:room).permit(Room::DEFAULT_PARAMS << { amentity_attributes: Amentity:: DEFAULT_PARAMS })
   end
 end

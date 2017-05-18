@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def authenticate_active_user!
     authenticate_user!
     unless current_user.admin?
-      flash[:alert] = "Unauthorized Access!"
+      flash[:alert] = 'Unauthorized Access!'
       redirect_to root_path
     end
   end
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = "Access denied!"
+    flash[:error] = 'Access denied!'
     redirect_to root_url
   end
 end
