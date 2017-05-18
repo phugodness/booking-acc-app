@@ -38,10 +38,12 @@
         </div>
         <div class="col-md-4">
           <%if @room.user.provider == 'facebook'%>
-            <%=image_tag(@room.user.image_file_name, size: 40, class: 'img-circle') %>
+            <%= image_tag(@room.user.image_file_name, size: 40, class: 'img-circle', id: 'hoverprofile')%>
+            <%= %>
           <% else %>
-            <%=image_tag(@room.user.image.url(:original), size: 40, class: 'img-circle') %>
+            <%= image_tag(@room.user.image.url(:original), size: 40, class: 'img-circle', id: 'hoverprofile')%>
           <% end %>
+          <iframe id="tooltip" src="<%=user_path(@room.user.id)%>", style="z-index:1; position: absolute; display: none;"width="300" height="600"></iframe>
           <b>
             <br>
             <%= @room.user.name %>
@@ -201,5 +203,6 @@
     scoreName: 'review[rank]'
   });
   $('#myCarousel').carousel();
+
 
 </script>

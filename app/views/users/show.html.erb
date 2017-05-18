@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="col-md-6" style="text-align: center;">
+          <%if @user.provider == 'facebook'%>
+            <%= image_tag(@user.image_file_name, class: "img-circle", style: 'width: 150px;') %>
+          <% else %>
+            <%= image_tag(@user.image.url(:original), class: "img-circle", style: 'width: 150px;')%>
+          <% end %>
+          <hr>
+          <b>
+            <%= @user.name%>
+          </b>
+          <hr>
+          <i>
+            <%= @user.try(:phone_number).try(:verified)? 'Verified' : 'Not Verified'%>
+          </i>
+          <hr>
+        </div>
+
+      </div>
+      <div class="col-md-8">
+
+        <div>
+          <%= @user.name %>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+
+            <%= @user.gender%>
+          </div>
+
+        </div>
+        <div>
+          <%= @user.date_of_birth%>
+        </div>
+        <div class="field">
+
+          <%= @user.email%>
+        </div>
+
+      </div>
+    </div>
+</div>

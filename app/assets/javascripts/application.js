@@ -135,4 +135,10 @@ $( document ).on('turbolinks:load', function() {
   $('.carousel-control.right').click(function() {
     $('#myCarousel').carousel('next');
   });
+
+  $('#hoverprofile, #tooltip').hover(function () {
+      $('#tooltip').stop().fadeIn();
+  }, function () {
+      $('#tooltip').stop().fadeOut();
+  });
 });

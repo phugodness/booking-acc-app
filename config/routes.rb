@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get 'users/profile', to: 'devise/registrations#edit', as: :user_root
   end
 
+  get 'users/:id' => 'users#show', as: :user
+
   delete'/image_rooms/remove_image/:id' => 'image_rooms#remove_image', as: :remove_image
 
   match '/404', to: 'errors#not_found', via: :all
