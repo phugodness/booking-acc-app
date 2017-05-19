@@ -1,4 +1,10 @@
-<div class="container">
+<div class="container " style="  border-radius: 2px;
+  border: 1px solid #242729;
+  background-color: #535a60;
+  color: #e4e6e8;
+  padding: 10px;
+  box-shadow: 0 1px rgba(12, 13, 14, 0.3);
+  position: relative;">
     <div class="row">
       <div class="col-md-4">
         <div class="col-md-6" style="text-align: center;">
@@ -17,29 +23,22 @@
           </i>
           <hr>
         </div>
-
       </div>
       <div class="col-md-8">
-
         <div>
           <%= @user.name %>
         </div>
-
         <div class="row">
           <div class="col-md-3">
-
-            <%= @user.gender%>
+            <%= @user.gender ? 'Male' : 'Female' %>
           </div>
-
         </div>
         <div>
-          <%= @user.date_of_birth%>
+          <%= @user.date_of_birth.strftime('%d-%m-%Y') if @user.date_of_birth.present?%>
         </div>
         <div class="field">
-
           <%= @user.email%>
         </div>
-
       </div>
     </div>
 </div>
