@@ -20,6 +20,14 @@ class ReservationsController < ApplicationController
     @reservations = current_user.reservations.order(:checkin_date).page(page).per(per_page)
   end
 
+  def approve_reservations
+    page = params[:q][:page] if params[:q].present?
+    per_page = 10
+    per_page = params[:limit] if params[:limit]
+    @approve_reservations = Reservation.joins(:room).where(rooms: {user_id: current_user.id})
+    @approve_reservations.page(page).per(per_page)
+  end
+
   def hook
     params.permit!
     status = params[:payment_status]
