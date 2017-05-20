@@ -65,7 +65,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <% (current_user.authored_conversations.includes(:author, :receiver) + current_user.received_conversations.includes(:receiver)).each do |conversation| %>
+              <% (current_user.authored_conversations.includes(:author, :receiver) + current_user.received_conversations.includes(:author, :receiver)).each do |conversation| %>
 
               <li>
                 <%= link_to "#{name = conversation.author.name == current_user.name ? conversation.receiver.try(:name) : conversation.author.try(:name) }", conversation_path(conversation.id)%>
