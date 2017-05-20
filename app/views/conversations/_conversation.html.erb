@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   Chatting with <%= online_status conversation.with(current_user) %>
   <br>
   <em><%= conversation.personal_messages.last.body.truncate(50) %></em>
