@@ -42,7 +42,12 @@ $( document ).on('turbolinks:load', function() {
 
   today = moment().format('DD/MM/YYYY')
   // Define the disabled date array
-  var disabledArr = gon.booked_date
+  if (window.location.pathname.match(/\/rooms\//)) {
+    var disabledArr = gon.booked_date
+  }
+  else {
+    var disabledArr = []
+  }
   for (i in disabledArr) {
     a = today == disabledArr[i]
     if (a) {
