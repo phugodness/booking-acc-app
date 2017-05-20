@@ -1,6 +1,17 @@
 <div class="container">
-  <h1>Chatting with <%= @conversation.with(current_user).name %></h1>
-
+  <p >
+    <h2 style="text-align: center;">Chatting with </h2>
+    <div style="text-align: center;">
+      <%if @conversation.with(current_user).provider == 'facebook'%>
+      <%=image_tag(@conversation.with(current_user).image_file_name, size: 40, class: 'img-circle') %>
+      <% else %>
+      <%=image_tag(@conversation.with(current_user).image.url(:original), size: 40, class: 'img-circle') %>
+      <% end %>
+    </div>
+    <div style="text-align: center;">
+      <%= @conversation.with(current_user).name %>
+    </div>
+  </p>
   <div id="conversation-main">
     <div id="conversation-body" data-conversation-id="<%= @conversation.id %>">
       <%= render @conversation.personal_messages %>
@@ -10,7 +21,7 @@
       <%= hidden_field_tag 'conversation_id', @conversation.id %>
       <%= f.label :body %>
       <%= f.text_area :body %>
-
+      <br>
       <%= f.submit %>
     <% end %>
   </div>

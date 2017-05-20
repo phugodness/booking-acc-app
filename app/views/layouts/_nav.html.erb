@@ -60,17 +60,8 @@
             </li>
         <% end %>
         <% if current_user.try(:reservations).count > 0 %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Your Reservations
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <% current_user.reservations.each do |reservation| %>
-              <li>
-                <%= link_to "Reservation: #{reservation.id}", edit_reservation_path(reservation.id)%>
-              </li>
-              <% end %>
-            </ul>
+          <li>
+            <%= link_to 'Your Books', reservations_path%>
           </li>
         <% end %>
         <% if (current_user.authored_conversations + current_user.received_conversations).length > 0 %>

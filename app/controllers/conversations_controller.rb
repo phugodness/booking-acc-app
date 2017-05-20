@@ -12,14 +12,14 @@ class ConversationsController < ApplicationController
 
   def show
     gon.current_user = current_user.name
-    @conversation = Conversation.find_by(id: params[:id])
+    @conversation = Conversation.includes(:personal_messages).find_by(id: params[:id])
     @personal_message = PersonalMessage.new
   end
 
   private
 
   def set_conversation
-    @conversation = Conversation.find_by(id: params[:id])
+    @conversation = Conversation.includes(:receiver).find_by(id: params[:id])
   end
 
   def check_participating!
