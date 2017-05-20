@@ -28,7 +28,11 @@
           <td><%= reservation.updated_at %></td>
           <td><%= reservation.room.name %></td>
           <td>
-              <%= select_tag "reservarion[status]", options_from_collection_for_select(Status.all, 'id', 'name', reservation.status.name) %>
+            <div style="width: 200px;">
+              <%= form_tag(reservation_path(reservation), :method => :put) do %>
+              <%= select_tag "reservation[status_id]", options_from_collection_for_select(Status.all, 'id', 'name', reservation.status.id), onchange: "$(this).closest('form').submit()", class: "form-control" %>
+              <% end %>
+            </div>
           </td>
           <td><%= number_to_currency reservation.total, precision: 0 %></td>
         </tr>

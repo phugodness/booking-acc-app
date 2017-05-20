@@ -70,6 +70,14 @@ class ReservationsController < ApplicationController
 
   end
 
+  def update
+    reservation = Reservation.find(params[:id])
+    if reservation.update(status_id: params[:reservation][:status_id])
+      flash[:success] = "Successfully"
+    else
+      flash[:danger] = "Failed to update"
+    end
+  end
   private
 
   def reservation_params
