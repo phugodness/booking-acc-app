@@ -14,7 +14,11 @@ jQuery(document).on 'turbolinks:load', ->
 
     received: (data) ->
       if messages.size() > 0 && messages.data('conversation-id') is data['conversation_id']
-        messages.append data['message'].body
+        if data.sender == gon.current_user
+          sender = 'me'
+        else
+          sender = data.sender
+        messages.append('<p>' + data.message.body + '</p><p> at <strong>' + data.message.created_at + '</strong><br>by <strong>' + sender + '</strong></p><hr>')
         messages_to_bottom()
       else
         $.getScript('/conversations') if $('#conversations').size() > 0

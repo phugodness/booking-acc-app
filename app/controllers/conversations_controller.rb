@@ -11,6 +11,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    gon.current_user = current_user.name
     @conversation = Conversation.find_by(id: params[:id])
     @personal_message = PersonalMessage.new
   end

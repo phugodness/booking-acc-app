@@ -4,6 +4,7 @@ class NotificationsBroadcastJob < ApplicationJob
   def perform(personal_message)
     ActionCable.server.broadcast "notifications_channel",
                                  message: personal_message,
+                                 sender: personal_message.user.name,
                                  conversation_id: personal_message.conversation.id
   end
 
