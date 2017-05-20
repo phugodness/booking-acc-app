@@ -33,7 +33,7 @@
               </ul>
             </li>
           <% end %>
-          <% if current_user.rooms.sum(&:reservations) != 0 %>
+          <% if current_user.rooms.includes(:reservations).sum(&:reservations) != 0 %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Manage Reservations
                 <span class="caret"></span>
@@ -59,20 +59,16 @@
               <%= link_to 'Admin Management', admin_root_path%>
             </li>
         <% end %>
-        <% if current_user.try(:reservations).count > 0 %>
-          <li>
-            <%= link_to 'Your Books', reservations_path%>
-          </li>
-        <% end %>
         <% if (current_user.authored_conversations + current_user.received_conversations).length > 0 %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Your Conversations
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <% (current_user.authored_conversations + current_user.received_conversations).each do |conversation| %>
+              <% (current_user.authored_conversations.includes(:author, :receiver) + current_user.received_conversations.includes(:receiver)).each do |conversation| %>
+
               <li>
-                <%= link_to "Conversation: #{conversation.id}", conversation_path(conversation.id)%>
+                <%= link_to "#{name = conversation.author.name == current_user.name ? conversation.receiver.try(:name) : conversation.author.try(:name) }", conversation_path(conversation.id)%>
               </li>
               <% end %>
             </ul>
@@ -90,6 +86,11 @@
                 <% end %>
               </a>
               <ul class="dropdown-menu">
+                <% if current_user.try(:reservations).count > 0 %>
+                  <li>
+                    <%= link_to 'Your Books', reservations_path%>
+                  </li>
+                <% end %>
                 <li>
                   <%= link_to('Edit', edit_user_registration_path) %>
                 </li>
