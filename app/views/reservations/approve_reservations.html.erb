@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-1 pull-right">
+      <%= form_tag approve_reservations_path, method: :get do %>
+        <%= select_tag :limit, options_for_select([3, 5, 10, 20], selected: params[:limit] || 10), class: 'form-control', id: "show-limit" %>
+      <% end %>
+    </div>
+  </div>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <% Reservation.column_names.each do |name| %>
+          <th><%=name%></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% @approve_reservations.each do |reservation|%>
+        <tr>
+          <th scope="row"><%= reservation.id%></th>
+          <td><%= reservation.checkin_date %></td>
+          <td><%= reservation.checkout_date %></td>
+          <td><%= reservation.number_of_guest %></td>
+          <td><%= reservation.service_fee %></td>
+          <td><%= reservation.user.name %></td>
+          <td><%= reservation.created_at %></td>
+          <td><%= reservation.updated_at %></td>
+          <td><%= reservation.room.name %></td>
+          <td>
+            <div style="width: 200px;">
+              <%= form_tag(reservation_path(reservation), :method => :put) do %>
+              <%= select_tag "reservation[status_id]", options_from_collection_for_select(Status.all, 'id', 'name', reservation.status.id), onchange: "$(this).closest('form').submit()", class: "form-control" %>
+              <% end %>
+            </div>
+          </td>
+          <td><%= number_to_currency reservation.total, precision: 0 %></td>
+        </tr>
+      <% end%>
+    </tbody>
+  </table>
+
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#show-limit").on("change", function(){
+      $(this).closest("form").trigger("submit");
+    });
+  })
+</script>

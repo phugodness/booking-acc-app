@@ -15,12 +15,15 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
   get 'search/index'
-  post '/hook' => 'reservations#hook'
-  post 'phone_numbers/verify' => "phone_numbers#verify"
 
+  post '/hook' => 'reservations#hook'
+  post 'phone_numbers/verify' => 'phone_numbers#verify'
+  get 'approve_reservations', to: 'reservations#approve_reservations'
   as :user do
     get 'users/profile', to: 'devise/registrations#edit', as: :user_root
   end
+
+  get 'users/:id' => 'users#show', as: :user
 
   delete'/image_rooms/remove_image/:id' => 'image_rooms#remove_image', as: :remove_image
 

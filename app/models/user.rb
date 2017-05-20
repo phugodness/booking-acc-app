@@ -47,7 +47,4 @@ class User < ApplicationRecord
     self.role.name == 'Regular'
   end
 
-  def online?
-    !Redis.new.get("user_#{id}_online").nil?
-  end
 end

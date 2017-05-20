@@ -7,11 +7,11 @@ class PhoneNumber < ApplicationRecord
   end
 
   def send_pin
-    twilio_client.messages.create(to: phone_number, from: ENV['TWILIO_PHONE_NUMBER'], body: "Your PIN is #{pin}")
+    twilio_client.messages.create(to: phone_number, from: Rails.application.secrets.twilio_number, body: "Your PIN is #{pin}")
   end
 
   def twilio_client
-    Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+    Twilio::REST::Client.new(Rails.application.secrets.twilio_sid, Rails.application.secrets.twilio_token)
   end
 
   def verify(entered_pin)

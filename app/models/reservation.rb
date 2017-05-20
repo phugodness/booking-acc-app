@@ -26,7 +26,7 @@ class Reservation < ApplicationRecord
       return: "#{Rails.application.secrets.app_host}#{return_path}",
       invoice: id,
       amount: total,
-      rooms: room.name + "(#{checkin_date} -- #{checkout_date})",
+      item_name: room.name + "(#{checkin_date} -- #{checkout_date})",
       item_number: number_of_guest,
       quantity: '1',
       notify_url: "#{Rails.application.secrets.app_host}/hook"

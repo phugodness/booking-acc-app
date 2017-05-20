@@ -17,6 +17,7 @@
 *= require dropzone
 *= require daterangepicker-bs2
 *= require bootstrap-datepicker3
+*= require bootstrap-social
 *= require_tree .
  */
 @import "bootstrap-sprockets";
@@ -27,7 +28,11 @@ body {
 }
 a {
   text-decoration: none !important;
-  color: #fff !important;
+  color: #000 !important;
+}
+a:hover {
+  color: #000 !important;
+  background-color: #fff !important;
 }
 h3 {
   color: #fff !important;

@@ -11,16 +11,18 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    gon.current_user = current_user.name
+    @conversation = Conversation.includes(:personal_messages).find_by(id: params[:id])
     @personal_message = PersonalMessage.new
   end
 
   private
 
   def set_conversation
-    @conversation = Conversation.includes(:author, :receiver).find_by(id: params[:id])
+    @conversation = Conversation.includes(:receiver).find_by(id: params[:id])
   end
 
   def check_participating!
-    redirect_to :index unless @conversation && @conversation.participates?(current_user)
+    redirect_to root_path unless @conversation && @conversation.participates?(current_user)
   end
 end

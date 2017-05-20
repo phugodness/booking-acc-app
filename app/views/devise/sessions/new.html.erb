@@ -21,39 +21,47 @@
                       </div>
                       </div>
                       <div class="form-bottom">
-                    <form role="form" action="" method="post" class="login-form">
-                      <div class="form-group">
-                        <label class="sr-only" for="form-username">Username</label>
-                          <%= f.email_field :email, autofocus: true %>
+                        <form role="form" action="" method="post" class="login-form">
+                          <div class="form-group">
+                            <label class="sr-only" for="form-username">Username</label>
+                              <%= f.email_field :email, autofocus: true, style: "width: 100%; height: 40px;", placeholder: 'Your email' %>
+                            </div>
+                            <div class="form-group">
+                              <label class="sr-only" for="form-password">Password</label>
+                              <%= f.password_field :password, autocomplete: "off", style: "width: 100%; height: 40px;", placeholder: 'Your password'  %>
+                            </div>
+                            <% if devise_mapping.rememberable? -%>
+                              <div style="color: #fff;">
+                                <%= f.check_box :remember_me %>
+                                Remember me
+                              </div>
+                            <% end %>
+                            <%= f.submit "Log in" %>
+                            <div class="pull-right">
+                              <span style="color: #fff;">
+                                If you do not have any accounts yet
+                              </span>
+                              <%= link_to 'Register Now', new_user_registration_path, class: "btn btn-xl"%>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3 ">
+                              <h3>...or login with:</h3>
+                              <div class="">
+                                <%- if devise_mapping.omniauthable? %>
+                                  <%- resource_class.omniauth_providers.each do |provider| %>
+                                    <a class="btn btn-block btn-social btn-<%= provider %>" style="height: 35px;" href=<%= omniauth_authorize_path(resource_name, provider)%>>
+                                      <span class="fa fa-<%= provider %>"></span><%= provider.capitalize%>
+                                    </a>
+                                  <% end -%>
+                                <% end -%>
+                              </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                          <label class="sr-only" for="form-password">Password</label>
-                          <%= f.password_field :password, autocomplete: "off" %>
-                        </div>
-                        <% if devise_mapping.rememberable? -%>
-                            <%= f.check_box :remember_me %>
-                            <%= f.label :remember_me %>
-                        <% end -%>
+                      </div>
+                  </div>
+              </div>
 
-                        <%= f.submit "Log in" %>
-                    </form>
-                  </div>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-6 col-sm-offset-3 ">
-                    <h3>...or login with:</h3>
-                    <div class="">
-                      <%- if devise_mapping.omniauthable? %>
-                        <%- resource_class.omniauth_providers.each do |provider| %>
-                          <a href=<%= omniauth_authorize_path(resource_name, provider)%>>
-                            <i class="fa fa-<%= provider %>" style="font-size: 50px;"></i>
-                          </a>
-                        <% end -%>
-                      <% end -%>
-                    </div>
-                  </div>
-              </div>
           </div>
       </div>
 

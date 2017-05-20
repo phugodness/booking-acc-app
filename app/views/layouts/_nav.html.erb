@@ -5,17 +5,17 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
       </button>
-      <%= link_to "Bookany", root_path, class: "navbar-brand page-scroll" %>
+      <%= link_to "Bookany", root_path, class: "navbar-brand page-scroll", style: 'color: #000 !important;' %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <% if current_user.role_id == 3 %>
+        <% if current_user.try(:role_id) == 3 %>
           <li>
             <%= link_to 'Become a host', new_phone_number_path, class: "page-scroll" %>
           </li>
-        <% elsif current_user.role_id == 2 %>
+        <% elsif current_user.try(:role_id) == 2 %>
           <li>
             <%= link_to 'Add new Room', new_room_path%>
           </li>
@@ -33,41 +33,42 @@
               </ul>
             </li>
           <% end %>
-          <% if current_user.rooms.sum(&:reservations).count > 0 %>
+          <% if current_user.rooms.includes(:reservations).sum(&:reservations) != 0 %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Manage Reservations
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <% current_user.rooms.each do |room| %>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "Room: #{room.name}", edit_room_path(room.id)%>
-                </li>
-                <li class="divider"></li>
-                <% room.reservations.each do |reservation|%>
+                  <li class="divider"></li>
                   <li>
-                    <%= link_to "Reservation: #{reservation.id}", edit_reservation_path(reservation.id)%>
+                    <%= link_to "Room: #{room.name}", edit_room_path(room.id)%>
                   </li>
-                <% end %>
+                  <li class="divider"></li>
+                  <% room.reservations.each do |reservation|%>
+                    <li>
+                      <%= link_to "Reservation: #{reservation.id}", edit_reservation_path(reservation.id)%>
+                    </li>
+                  <% end %>
                 <% end %>
               </ul>
             </li>
           <% end %>
-          <% elsif current_user.role_id == 1 %>
+          <% elsif current_user.try(:role_id) == 1 %>
             <li>
               <%= link_to 'Admin Management', admin_root_path%>
             </li>
         <% end %>
-        <% if current_user.reservations.count > 0 %>
+        <% if (current_user.authored_conversations + current_user.received_conversations).length > 0 %>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Your Reservations
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Your Conversations
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <% current_user.reservations.each do |reservation| %>
+              <% (current_user.authored_conversations.includes(:author, :receiver) + current_user.received_conversations.includes(:author, :receiver)).each do |conversation| %>
+
               <li>
-                <%= link_to "Reservation: #{reservation.id}", edit_reservation_path(reservation.id)%>
+                <%= link_to "#{name = conversation.author.name == current_user.name ? conversation.receiver.try(:name) : conversation.author.try(:name) }", conversation_path(conversation.id)%>
               </li>
               <% end %>
             </ul>
@@ -85,6 +86,11 @@
                 <% end %>
               </a>
               <ul class="dropdown-menu">
+                <% if current_user.try(:reservations).count > 0 %>
+                  <li>
+                    <%= link_to 'Your Books', reservations_path%>
+                  </li>
+                <% end %>
                 <li>
                   <%= link_to('Edit', edit_user_registration_path) %>
                 </li>
