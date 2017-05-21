@@ -20,11 +20,19 @@
           <hr>
           <i>
             <%= @user.try(:phone_number).try(:verified)? 'Verified' : 'Not Verified'%>
+            <% if @user.try(:phone_number).try(:verified)%>
+              <%= image_tag 'tick.ico', size: '10'%>
+            <% end %>
           </i>
           <hr>
         </div>
       </div>
       <div class="col-md-8">
+        <div class="">
+          <% if @user.try(:phone_number).try(:verified)%>
+            <%= @user.try(:phone_number).phone_number%>
+          <% end %>
+        </div>
         <div>
           <%= @user.name %>
         </div>

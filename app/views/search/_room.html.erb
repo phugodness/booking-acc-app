@@ -28,7 +28,12 @@
                 </i>
               </div>
               <div class="col-md-4">
-                <%= image_tag(room.user.image.url(:original), size: 40, class: 'img-circle')%>
+                <%if room.user.provider == 'facebook'%>
+                  <%= image_tag(room.user.image_file_name, size: 40, class: 'img-circle')%>
+                  <%= %>
+                <% else %>
+                  <%= image_tag(room.user.image.url(:original), size: 40, class: 'img-circle')%>
+                <% end %>
                 <b>
                   <br>
                   <%= room.user.name %>

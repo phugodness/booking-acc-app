@@ -11,6 +11,8 @@ class Reservation < ApplicationRecord
     if card.nil? then "paypal"; else "card"; end
   end
 
+  scope :confirmed, -> { where(status_id: 2)   }
+
   validates :checkin_date, :checkout_date, :number_of_guest, :service_fee, presence: true
   validate :same_as_owner, on: :create
 

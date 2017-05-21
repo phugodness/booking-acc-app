@@ -47,7 +47,7 @@
                   <li class="divider"></li>
                   <% room.reservations.each do |reservation|%>
                     <li>
-                      <%= link_to "Reservation: #{reservation.id}", edit_reservation_path(reservation.id)%>
+                      <%= link_to "Reservation: #{reservation.id}", approve_reservations_path%>
                     </li>
                   <% end %>
                 <% end %>
@@ -92,7 +92,7 @@
                   </li>
                 <% end %>
                 <li>
-                  <%= link_to('Edit', edit_user_registration_path) %>
+                  <%= link_to('Edit Profile', edit_user_registration_path) %>
                 </li>
                 <li class="divider"></li>
                 <li>

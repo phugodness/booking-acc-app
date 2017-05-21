@@ -43,13 +43,20 @@
           <% else %>
             <%= image_tag(@room.user.image.url(:original), size: 40, class: 'img-circle', id: 'hoverprofile')%>
           <% end %>
+          <% if @room.user.try(:phone_number).try(:verified)%>
+            <%= image_tag 'tick.ico', size: '20'%>
+          <% end %>
           <iframe id="tooltip" src="<%=user_path(@room.user.id)%>", style="z-index:1; position: absolute; display: none;"width="300" height="600"></iframe>
           <b>
             <br>
             <%= @room.user.name %>
           </b>
           <br>
-          <%= link_to 'send a message', new_personal_message_path(receiver_id: @room.user) %>
+          <% if current_user.authored_conversations.where(receiver_id: @room.user.id).present? || current_user.received_conversations.where(author_id: @room.user.id).present? %>
+            <%= link_to 'see conversation', conversation_path(current_user.authored_conversations.where(receiver_id: @room.user.id).present? ? current_user.authored_conversations.where(receiver_id: @room.user.id).first : current_user.received_conversations.where(author_id: @room.user.id).first) %>
+          <% else %>
+            <%= link_to 'send a message', new_personal_message_path(receiver_id: @room.user) %>
+          <% end %>
         </div>
       </div>
       <hr>
@@ -165,7 +172,7 @@
           <hr>
         <% end %>
       </div>
-      <% if current_user.reservations.where(room_id: @room.id).count > 0 %>
+      <% if current_user.reservations.confirmed.where(room_id: @room.id).count > 0 %>
         <div class="row">
           <%= render 'reviews/form' %>
         </div>
@@ -176,9 +183,11 @@
         <% end %>
       </div>
     </div>
-    <div class="col-md-4 reservations">
-      <%= render 'reservations/form', reservation: @reservation, room: @room, card: @card%>
-    </div>
+    <% unless can? :update, @room %>
+      <div class="col-md-4 reservations">
+        <%= render 'reservations/form', reservation: @reservation, room: @room, card: @card%>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -204,5 +213,9 @@
   });
   $('#myCarousel').carousel();
 
-
+  $('#hoverprofile, #tooltip').hover(function () {
+      $('#tooltip').stop().fadeIn();
+  }, function () {
+      $('#tooltip').stop().fadeOut();
+  });
 </script>
