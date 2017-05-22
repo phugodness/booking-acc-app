@@ -23,9 +23,6 @@
       </div>
       <div class="row">
         <div class="col-md-8">
-          <% if can? :update, @room %>
-            <%= link_to 'Edit This Room', edit_room_path(@room), class: "btn btn-xl"%>
-          <% end %>
           <h2>
             <%= @room.name %>
           </h2>
@@ -177,13 +174,10 @@
           <%= render 'reviews/form' %>
         </div>
       <% end %>
-      <div class="row">
-        <% if can? :destroy, @room %>
-          <%= link_to 'Destroy This Room', room_path(@room), class: "btn btn-xl", method: :delete, 'data-confirm': 'Are you Sure?'%>
-        <% end %>
-      </div>
     </div>
-    <% unless can? :update, @room %>
+    <% if can? :update, @room %>
+      <%= link_to 'Edit This Room', edit_room_path(@room), class: "btn btn-xl"%>
+    <% else %>
       <div class="col-md-4 reservations">
         <%= render 'reservations/form', reservation: @reservation, room: @room, card: @card%>
       </div>
