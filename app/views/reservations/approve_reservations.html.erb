@@ -17,7 +17,7 @@
     <tbody>
 
       <% @approve_reservations.each do |reservation|%>
-        <tr>
+        <tr style="background-color: <%=reservation.checkin_date == Date.today ? 'yellow' : '' %>">
           <th scope="row"><%= reservation.id%></th>
           <td><%= reservation.checkin_date %></td>
           <td><%= reservation.checkout_date %></td>

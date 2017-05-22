@@ -1,10 +1,20 @@
 <div class="container">
-  <div>
-    Chatting with <%= conversation.with(current_user) %>
-    <br>
-    <em><%= conversation.personal_messages.last.body.truncate(50) %></em>
-    <br>
-    <%= link_to 'View conversation', conversation_path(conversation) %>
-    <hr>
+  <div class="row">
+    <div class="col-md-1">
+      <%if conversation.with(current_user).provider == 'facebook'%>
+      <%=image_tag(conversation.with(current_user).image_file_name, size: 40, class: 'img-circle') %>
+      <% else %>
+      <%=image_tag(conversation.with(current_user).image.url(:original), size: 40, class: 'img-circle') %>
+      <% end %>
+    </div>
+    <div class="col-md-11">
+      Chatting with <%= conversation.with(current_user).name %>
+      <br>
+      <em><%= conversation.personal_messages.last.body.truncate(50) %></em>
+      <br>
+      <%= link_to 'View conversation', conversation_path(conversation) %>
+      <hr>
+    </div>
+
   </div>
 </div>

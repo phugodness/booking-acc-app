@@ -45,7 +45,7 @@
                     <%= link_to "Room: #{room.name}", edit_room_path(room.id)%>
                   </li>
                   <li class="divider"></li>
-                  <% room.reservations.each do |reservation|%>
+                  <% room.reservations.order(checkin_date: :desc).take(5).each do |reservation|%>
                     <li>
                       <%= link_to "Reservation: #{reservation.id}", approve_reservations_path%>
                     </li>
@@ -66,11 +66,21 @@
             </a>
             <ul class="dropdown-menu">
               <% (current_user.authored_conversations.includes(:author, :receiver) + current_user.received_conversations.includes(:author, :receiver)).each do |conversation| %>
-
+                <% user = conversation.author == current_user ? conversation.receiver  : conversation.author %>
               <li>
-                <%= link_to "#{name = conversation.author.name == current_user.name ? conversation.receiver.try(:name) : conversation.author.try(:name) }", conversation_path(conversation.id)%>
+                <%if user.provider == 'facebook'%>
+                  <%=image_tag(user.image_file_name, size: 40, class: 'img-circle') %>
+                <% else %>
+                  <%=image_tag(user.image.url(:original), size: 40, class: 'img-circle') %>
+                <% end %>
+                <em><%= conversation.personal_messages.last.body.truncate(50) %></em>
+                <%= link_to "#{user.try(:name) }", conversation_path(conversation.id)%>
               </li>
               <% end %>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "See all", conversations_path%>
+              </li>
             </ul>
           </li>
         <% end %>
