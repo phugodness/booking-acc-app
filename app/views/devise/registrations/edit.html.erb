@@ -15,6 +15,9 @@
           <hr>
           <i>
             <%= current_user.try(:phone_number).try(:verified)? 'Verified' : 'Not Verified'%>
+            <% if current_user.try(:phone_number).try(:verified)%>
+              <%= image_tag 'tick.ico', size: '10'%>
+            <% end %>
           </i>
           <hr>
         </div>

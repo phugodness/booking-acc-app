@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-md-6">
         <%= f.label :type_of_room_id %>
-        <%= f.select :type_of_room_id, @type_of_room.collect{ |u| [u.name, u.id]} %>
+        <%= f.select :type_of_room_id, @type_of_room.collect{ |u| [u.name, u.id]}, {}, class: 'form-control', style: 'width: 76% !important;' %>
       </div>
       <div class="col-md-6">
         <%= f.label :number_of_room %>
@@ -37,28 +37,28 @@
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :internet %>
-          Internet
+          <label for="room_amentity_attributes_internet">Internet</label>
         </div>
 
       </div>
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :air_conditioning %>
-          air_conditioning
+          <label for="room_amentity_attributes_air_conditioning">air_conditioning</label>
         </div>
 
       </div>
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :cable_tv %>
-          cable_tv
+          <label for="room_amentity_attributes_cable_tv">cable_tv</label>
         </div>
 
       </div>
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :breakfast %>
-          breakfast
+          <label for="room_amentity_attributes_breakfast">breakfast</label>
         </div>
 
       </div>
@@ -67,28 +67,28 @@
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :parking %>
-          parking
+          <label for="room_amentity_attributes_parking">parking</label>
         </div>
 
       </div>
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :elevator %>
-          elevator
+          <label for="room_amentity_attributes_elevator">elevator</label>
         </div>
 
       </div>
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :heating %>
-          heating
+          <label for="room_amentity_attributes_heating">heating</label>
         </div>
 
       </div>
       <div class="col-md-3">
         <div class="">
           <%= builder.check_box :hot_tub %>
-          hot_tub
+          <label for="room_amentity_attributes_hot_tub">hot_tub</label>
         </div>
 
       </div>
