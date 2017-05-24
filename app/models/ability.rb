@@ -38,8 +38,13 @@ class Ability
       can :destroy, Room do |room|
         room.try(:user) == user
       end
+      can :new, ImageRoom
+      can :manage, ImageRoom do |image|
+        image.room.try(:user) == user
+      end
     elsif user.regular?
       can :read, Room
+      can :read, ImageRoom
     end
   end
 end

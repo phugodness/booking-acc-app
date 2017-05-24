@@ -1,4 +1,5 @@
 class ImageRoomsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_image_room, only: [:destroy, :remove_image]
   def new
     @image_room = ImageRoom.new
@@ -26,10 +27,10 @@ class ImageRoomsController < ApplicationController
   def remove_image
     @image_room = ImageRoom.find(params[:id])
     if @image_room.destroy
-      flash[:notice] = "Successfully deleted photo!"
+      flash[:notice] = 'Successfully deleted photo!'
       redirect_to :back
     else
-      flash[:alert] = "Error deleting photo!"
+      flash[:alert] = 'Error deleting photo!'
     end
   end
 
