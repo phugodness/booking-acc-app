@@ -57,5 +57,5 @@ If you have any question you can contact me via:
 - **Step 8**: Enjoy
 
 ### Description
-visa number: 4539644852839411
-cvv: 000
+- visa number: 4539644852839411
+- cvv: 000
