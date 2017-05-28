@@ -6,9 +6,9 @@ class ReservationsController < ApplicationController
   def destroy
     @reservation = Reservation.find(params[:id])
     if @reservation.destroy
-      flash[:notice] = "Successfully destroyed..."
+      flash[:notice] = 'Successfully destroyed...'
     else
-      flash[:alert] = "Can not Delete..."
+      flash[:alert] = 'Can not Delete...'
     end
     redirect_to :back
   end
@@ -17,15 +17,16 @@ class ReservationsController < ApplicationController
     page = params[:q][:page] if params[:q].present?
     per_page = 10
     per_page = params[:limit] if params[:limit]
-    @reservations = current_user.reservations.includes(:user).order(:checkin_date).page(page).per(per_page)
+    @q = Reservation.where(user_id: current_user.id).ransack(params[:q])
+    @reservations = @q.result.includes(:user).order(:checkin_date).page(page).per(per_page)
   end
 
   def approve_reservations
     page = params[:q][:page] if params[:q].present?
     per_page = 10
     per_page = params[:limit] if params[:limit]
-    @approve_reservations = Reservation.joins(:room).includes(:user, :room, :status).where(rooms: {user_id: current_user.id}).order(checkin_date: :desc)
-    @approve_reservations.page(page).per(per_page)
+    @q = Reservation.joins(:room).where(rooms: { user_id: current_user.id }).ransack(params[:q])
+    @approve_reservations = @q.result.includes(:user, :room, :status).order(checkin_date: :desc).page(page).per(per_page)
   end
 
   def hook
@@ -72,12 +73,22 @@ class ReservationsController < ApplicationController
 
   def update
     reservation = Reservation.find(params[:id])
-    if reservation.update(status_id: params[:reservation][:status_id])
-      flash[:success] = "Successfully"
+    begin
+      result = reservation.update!(status_id: params[:reservation][:status_id])
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:danger] = e.message
+      redirect_to(action: 'approve_reservations', flash: { danger: e.message })
+      return
+    end
+    if result
+      flash[:success] = 'Successfully'
+      redirect_to(action: 'approve_reservations')
     else
-      flash[:danger] = "Failed to update"
+      flash[:danger] = 'Failed to update'
+      redirect_to(action: 'approve_reservations')
     end
   end
+
   private
 
   def reservation_params

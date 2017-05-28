@@ -6,40 +6,44 @@
       <% end %>
     </div>
   </div>
-  <table class="table table-hover table-striped">
-    <thead>
-      <tr>
-        <% Reservation.column_names.each do |name| %>
-          <th><%=name%></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-
-      <% @approve_reservations.each do |reservation|%>
-        <tr style="background-color: <%=reservation.checkin_date == Date.today ? 'yellow' : '' %>">
-          <th scope="row"><%= reservation.id%></th>
-          <td><%= reservation.checkin_date %></td>
-          <td><%= reservation.checkout_date %></td>
-          <td><%= reservation.number_of_guest %></td>
-          <td><%= reservation.service_fee %></td>
-          <td><%= reservation.user.name %></td>
-          <td><%= reservation.created_at %></td>
-          <td><%= reservation.updated_at %></td>
-          <td><%= reservation.room.name %></td>
-          <td>
-            <div style="width: 200px;">
-              <%= form_tag(reservation_path(reservation), :method => :put) do %>
-              <%= select_tag "reservation[status_id]", options_from_collection_for_select(Status.all, 'id', 'name', reservation.status.id), onchange: "$(this).closest('form').submit()", class: "form-control" %>
-              <% end %>
-            </div>
-          </td>
-          <td><%= number_to_currency reservation.total, precision: 0 %></td>
+  <%= search_form_for @q do |f|%>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <% Reservation.column_names.each do |name| %>
+            <th><%= sort_link(@q, name.to_sym)%></th>
+          <% end %>
         </tr>
-      <% end%>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
 
+        <% @approve_reservations.each do |reservation|%>
+          <tr style="background-color: <%=reservation.checkin_date == Date.today ? 'yellow' : '' %>">
+            <th scope="row"><%= reservation.id%></th>
+            <td class="col-md-1"><%= reservation.checkin_date %></td>
+            <td class="col-md-1"><%= reservation.checkout_date %></td>
+            <td><%= reservation.number_of_guest %></td>
+            <td><%= reservation.service_fee %></td>
+            <td><%= reservation.user.name %></td>
+            <td><%= reservation.created_at %></td>
+            <td><%= reservation.updated_at %></td>
+            <td><%= reservation.room.name %></td>
+            <td>
+              <div style="width: 200px;">
+                <%= form_tag(reservation_path(reservation), :method => :put) do %>
+                  <%= select_tag "reservation[status_id]", options_from_collection_for_select(Status.all, 'id', 'name', reservation.status.id), onchange: "$(this).closest('form').submit()", class: "form-control" %>
+                <% end %>
+              </div>
+            </td>
+            <td><%= number_to_currency reservation.total, precision: 0 %></td>
+          </tr>
+        <% end%>
+      </tbody>
+    </table>
+  <% end %>
+  <div class="paginate">
+    <%= paginate @approve_reservations %>
+  </div>
 </div>
 <script type="text/javascript">
   $(function(){

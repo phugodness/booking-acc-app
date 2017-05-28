@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-md-7">
       <div class="form-group">
-        <%= f.text_field :address_cont, class: 'form-control', placeholder: 'Address' %>
+        <%= f.text_field :address_cont, class: 'form-control', placeholder: 'Input Address here' %>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.select :type_of_room_id_eq, TypeOfRoom.all.collect {|p| [ p.name, p.id]}, {include_blank: true}, class: 'form-control' %>
+        <%= f.select :type_of_room_id_eq, TypeOfRoom.all.collect {|p| [ p.name, p.id]}, {prompt: 'Type of your finding room'}, class: 'form-control' %>
       </div>
     </div>
     <div class="col-md-1">
@@ -41,25 +41,25 @@
       <br>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_internet_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_internet_true">Internet</label>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_air_conditioning_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_air_conditioning_true">air_conditioning</label>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_cable_tv_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_cable_tv_true">cable_tv</label>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_breakfast_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_breakfast_true">breakfast</label>
@@ -67,25 +67,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_parking_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_parking_true">parking</label>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_elevator_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_elevator_true">elevator</label>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_heating_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_heating_true">heating</label>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="">
           <%= f.check_box :amentity_hot_tub_true, disabled: true, include_hidden: false %>
           <label for="q_amentity_hot_tub_true">hot_tub</label>

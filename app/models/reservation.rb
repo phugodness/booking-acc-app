@@ -12,7 +12,7 @@ class Reservation < ApplicationRecord
   def booked_dates
     booked_date = []
     room = Room.find(room_id)
-    available_reservations = room.reservations.reject { |a| a.status_id == 3 }
+    available_reservations = room.reservations.reject { |a| a.status_id == 3 || a.id == id }
     available_reservations.collect do |x|
       x.checkin_date.upto(x.checkout_date) { |d| booked_date << d.strftime('%d/%m/%Y') }
     end
