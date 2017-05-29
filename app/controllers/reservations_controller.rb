@@ -36,8 +36,10 @@ class ReservationsController < ApplicationController
       @reservation = Reservation.find params[:invoice]
       # @reservation.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
       @reservation.update(status_id: 2)
+      flash[:success] = "Pay Transaction successfully"
+    else
+      flash[:danger] = "Pay Transaction failed"
     end
-    render nothing: true
   end
 
   def new
