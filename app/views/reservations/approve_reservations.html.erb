@@ -24,7 +24,8 @@
             <td class="col-md-1"><%= reservation.checkout_date %></td>
             <td><%= reservation.number_of_guest %></td>
             <td><%= reservation.service_fee %></td>
-            <td><%= reservation.user.name %></td>
+            <td id="hoverprofile" class="user<%=reservation.user.id%>"><%= reservation.user.name %></td>
+            <iframe id="tooltip" class="user<%=reservation.user.id%>" src="<%=user_path(reservation.user.id)%>", style="z-index:1; position: absolute; display: none;"width="300" height="600"></iframe>
             <td><%= reservation.created_at %></td>
             <td><%= reservation.updated_at %></td>
             <td><%= reservation.room.name %></td>
@@ -51,4 +52,10 @@
       $(this).closest("form").trigger("submit");
     });
   })
+  $('#hoverprofile, #tooltip').hover(function () {
+    a = $(this).prop('class')
+    $($('iframe.'+a)[0]).stop().fadeIn();
+  }, function () {
+    $($('iframe.'+a)[0]).stop().fadeOut();
+  });
 </script>
